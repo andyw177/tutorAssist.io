@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/tutorassist_db
+    username: "root"
+    password: "anw15102"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: update
+  jackson:
+    serialization:
+      fail-on-empty-beans: false   
+      
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "GET,POST,UPDATE,DELETE"
