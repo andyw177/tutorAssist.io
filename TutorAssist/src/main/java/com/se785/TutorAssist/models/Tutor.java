@@ -1,61 +1,132 @@
 package com.se785.TutorAssist.models;
 
 import java.util.List;
+import java.util.Set;
 
-public class Tutor extends User {
-	List available_times;
-	List classes;
-	List students_list;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
+
+@Entity
+public class Tutor {
+	@Id
+	@GeneratedValue
+	int tutorId;
+	String username;
+	String password;
+	String email;
+	UserType userType;
+	String securityQues;
+	String securityAns;
+	boolean isAdmin;
+	int rating;
 	
-	public Tutor(int id, String name, String password, String email, UserType user_type, String security_ques,
-			String security_ans, boolean isAdmin, int rating) {
-		super(id, name, password, email, user_type, security_ques, security_ans, isAdmin, rating);
-		// TODO Auto-generated constructor stub
-	}
-
-	
-
-	public List getAvailable_times() {
-		return available_times;
-	}
-
-
-
-	public void setAvailable_times(List available_times) {
-		this.available_times = available_times;
-	}
-
-
-
-	public List getClasses() {
-		return classes;
-	}
-
-
-
-	public void setClasses(List classes) {
-		this.classes = classes;
-	}
-
-
-
-	public List getStudents_list() {
-		return students_list;
-	}
-
-
-
-	public void setStudents_list(List students_list) {
-		this.students_list = students_list;
-	}
-
-
+	@OneToMany(mappedBy = "tutor")
+	Set<Class> classes;
 
 	public Tutor() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	public Tutor(int tutorId, String username, String password, String email, UserType userType, String securityQues,
+			String securityAns, boolean isAdmin, int rating, Set<Class> classes) {
+		super();
+		this.tutorId = tutorId;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.userType = userType;
+		this.securityQues = securityQues;
+		this.securityAns = securityAns;
+		this.isAdmin = isAdmin;
+		this.rating = rating;
+		this.classes = classes;
+	}
+
+	public int getTutorId() {
+		return tutorId;
+	}
+
+	public void setTutorId(int tutorId) {
+		this.tutorId = tutorId;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public UserType getUserType() {
+		return userType;
+	}
+
+	public void setUserType(UserType userType) {
+		this.userType = userType;
+	}
+
+	public String getSecurityQues() {
+		return securityQues;
+	}
+
+	public void setSecurityQues(String securityQues) {
+		this.securityQues = securityQues;
+	}
+
+	public String getSecurityAns() {
+		return securityAns;
+	}
+
+	public void setSecurityAns(String securityAns) {
+		this.securityAns = securityAns;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+
+	public Set<Class> getClasses() {
+		return classes;
+	}
+
+	public void setClasses(Set<Class> classes) {
+		this.classes = classes;
+	}
+
 	
 	
 	
