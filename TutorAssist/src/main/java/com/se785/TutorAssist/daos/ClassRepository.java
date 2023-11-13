@@ -9,9 +9,9 @@ import com.se785.TutorAssist.models.Class;
 
 @Repository
 public interface ClassRepository extends JpaRepository<Class, Integer>{
-//	Class findByClassId(int id);
+	Class findByClassId(int id);
 //	Class findByTutorId(int id);
-//	List<Class> findAll();
+	List<Class> findAll();
 //	Class findByStudentId(int id);
 //	List<Class> findAllByStudentId(int studentId);
 //	List<Class> findAllByTutorId(int tutorId);

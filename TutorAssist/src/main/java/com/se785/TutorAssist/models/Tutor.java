@@ -1,29 +1,52 @@
 package com.se785.TutorAssist.models;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Tutor {
 	@Id
 	@GeneratedValue
+	@Column(nullable = false)
 	int tutorId;
+	@Column(nullable = false)
+	String firstName;
+	@Column(nullable = false)
+	String lastName;
+	@Column(nullable = false,unique = true)
 	String username;
+	@Column(nullable = false)
 	String password;
+	@Column(nullable = false)
 	String email;
-	UserType userType;
+	@Column
+	String college;
+	@Column
+	String degreeType;
+	@Column
+	String major;
+	@Column
+	Date year;
+	@Column(nullable = false)
 	String securityQues;
+	@Column(nullable = false)
 	String securityAns;
+	@Column(nullable = false)
 	boolean isAdmin;
+	@Column
 	int rating;
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "tutor")
 	Set<Class> classes;
 
@@ -32,14 +55,20 @@ public class Tutor {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Tutor(int tutorId, String username, String password, String email, UserType userType, String securityQues,
-			String securityAns, boolean isAdmin, int rating, Set<Class> classes) {
+	public Tutor(int tutorId, String firstName, String lastName, String username, String password, String email,
+			String college, String degreeType, String major, Date year, String securityQues, String securityAns,
+			boolean isAdmin, int rating, Set<Class> classes) {
 		super();
 		this.tutorId = tutorId;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.userType = userType;
+		this.college = college;
+		this.degreeType = degreeType;
+		this.major = major;
+		this.year = year;
 		this.securityQues = securityQues;
 		this.securityAns = securityAns;
 		this.isAdmin = isAdmin;
@@ -53,6 +82,22 @@ public class Tutor {
 
 	public void setTutorId(int tutorId) {
 		this.tutorId = tutorId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getUsername() {
@@ -79,12 +124,36 @@ public class Tutor {
 		this.email = email;
 	}
 
-	public UserType getUserType() {
-		return userType;
+	public String getCollege() {
+		return college;
 	}
 
-	public void setUserType(UserType userType) {
-		this.userType = userType;
+	public void setCollege(String college) {
+		this.college = college;
+	}
+
+	public String getDegreeType() {
+		return degreeType;
+	}
+
+	public void setDegreeType(String degreeType) {
+		this.degreeType = degreeType;
+	}
+
+	public String getMajor() {
+		return major;
+	}
+
+	public void setMajor(String major) {
+		this.major = major;
+	}
+
+	public Date getYear() {
+		return year;
+	}
+
+	public void setYear(Date year) {
+		this.year = year;
 	}
 
 	public String getSecurityQues() {
@@ -127,7 +196,6 @@ public class Tutor {
 		this.classes = classes;
 	}
 
-	
 	
 	
 	 

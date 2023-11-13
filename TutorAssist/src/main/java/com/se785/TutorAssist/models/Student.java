@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,13 +20,29 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Student implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(nullable = false)
 	int studentId;
+	@Column(nullable = false)
+	String firstName;
+	@Column(nullable = false)
+	String lastName;
+	@Column(nullable = false,unique = true)
 	String username;
+	@Column(nullable = false)
 	String password;
+	@Column(nullable = false)
 	String email;
+	@Column
+	String birthdate;
+	@Column
+	String gender;
+	@Column(nullable = false)
 	String securityQues;
+	@Column(nullable = false)
 	String securityAns;
+	@Column(nullable = false)
 	boolean isAdmin;
+	@Column
 	int rating;
 	
 	
@@ -33,19 +50,27 @@ public class Student implements Serializable{
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-	@JsonIgnoreProperties({"students"})
-	Set<Class> classes = new HashSet<>();
+	@JsonIgnoreProperties({"students","tutor"})
+//	@ManyToMany @Column
+//	@JsonIgnoreProperties({"students"})
+	
+	Set<Class> classes;
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Student(int studentId, String username, String password, String email, 
-			String securityQues, String securityAns, boolean isAdmin, int rating, Set<Class> classes) {
+	public Student(int studentId, String firstName, String lastName, String username, String password, String email,
+			String birthdate, String gender, String securityQues, String securityAns, boolean isAdmin, int rating,
+			Set<Class> classes) {
 		super();
 		this.studentId = studentId;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.username = username;
 		this.password = password;
 		this.email = email;
+		this.birthdate = birthdate;
+		this.gender = gender;
 		this.securityQues = securityQues;
 		this.securityAns = securityAns;
 		this.isAdmin = isAdmin;
@@ -57,6 +82,18 @@ public class Student implements Serializable{
 	}
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	public String getUsername() {
 		return username;
@@ -75,6 +112,18 @@ public class Student implements Serializable{
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getBirthdate() {
+		return birthdate;
+	}
+	public void setBirthdate(String birthdate) {
+		this.birthdate = birthdate;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	public String getSecurityQues() {
 		return securityQues;
@@ -107,6 +156,5 @@ public class Student implements Serializable{
 		this.classes = classes;
 	}
 	
-
 	
 }
