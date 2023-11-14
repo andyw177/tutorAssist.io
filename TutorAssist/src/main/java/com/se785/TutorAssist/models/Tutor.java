@@ -48,7 +48,7 @@ public class Tutor {
 	int rating;
 	@JsonIgnore
 	@OneToMany(mappedBy = "tutor")
-	Set<Class> classes;
+	Set<Course> courses;
 
 	public Tutor() {
 		super();
@@ -57,7 +57,7 @@ public class Tutor {
 
 	public Tutor(int tutorId, String firstName, String lastName, String username, String password, String email,
 			String college, String degreeType, String major, Date year, String securityQues, String securityAns,
-			boolean isAdmin, int rating, Set<Class> classes) {
+			boolean isAdmin, int rating, Set<Course> courses) {
 		super();
 		this.tutorId = tutorId;
 		this.firstName = firstName;
@@ -73,7 +73,7 @@ public class Tutor {
 		this.securityAns = securityAns;
 		this.isAdmin = isAdmin;
 		this.rating = rating;
-		this.classes = classes;
+		this.courses = courses;
 	}
 
 	public int getTutorId() {
@@ -188,12 +188,12 @@ public class Tutor {
 		this.rating = rating;
 	}
 
-	public Set<Class> getClasses() {
-		return classes;
+	public Set<Course> getCourses() {
+		return courses;
 	}
 
-	public void setClasses(Set<Class> classes) {
-		this.classes = classes;
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
 	}
 
 	

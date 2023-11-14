@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.se785.TutorAssist.exceptions.UserNotFoundException;
 import com.se785.TutorAssist.models.Student;
 import com.se785.TutorAssist.models.Tutor;
-import com.se785.TutorAssist.models.Class;
+import com.se785.TutorAssist.models.Course;
 import com.se785.TutorAssist.services.StudentService;
 
 @RestController
@@ -78,10 +78,10 @@ public class StudentController {
 		}
     }
     
-	//Provides a list of Classes on the database that match a given criteria and sends it back as JSON.
-    @GetMapping(value="/getClasses/{id}")
-    public ResponseEntity<Set<Class>> getClassList(@PathVariable("id") int id)throws UserNotFoundException {
-		return new ResponseEntity<>(ss.getClassList(id),HttpStatus.FOUND); 
+	//Provides a list of Coursees on the database that match a given criteria and sends it back as JSON.
+    @GetMapping(value="/getCoursees/{id}")
+    public ResponseEntity<Set<Course>> getCourseList(@PathVariable("id") int id)throws UserNotFoundException {
+		return new ResponseEntity<>(ss.getCourseList(id),HttpStatus.FOUND); 
 	
     }
 

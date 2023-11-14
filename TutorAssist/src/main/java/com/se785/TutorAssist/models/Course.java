@@ -20,54 +20,54 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 
-public class Class implements Serializable {	
+public class Course implements Serializable {	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	int classId;
-	String className;
-//	@JsonIgnoreProperties({"classes"})
+	int courseId;
+	String courseName;
+//	@JsonIgnoreProperties({"courses"})
 //	@ManyToMany(cascade = {
 //            CascadeType.PERSIST,
 //            CascadeType.MERGE
 //    })
 //	@JoinTable(
-//            name = "StudentClasses",
-//            joinColumns = {@JoinColumn(name = "classId")},
+//            name = "Studentcourses",
+//            joinColumns = {@JoinColumn(name = "courseId")},
 //            inverseJoinColumns = {@JoinColumn(name = "studentId")}
 //    )
 	@ManyToMany @Column
-	@JsonIgnoreProperties({"classes"})
+	@JsonIgnoreProperties({"courses"})
 	Set<Student> students;
 	@ManyToOne
 	@JoinColumn(name="tutorId", nullable = false)
-	@JsonIgnoreProperties({"classes"})
+	@JsonIgnoreProperties({"courses"})
 	Tutor tutor;
 	Date startDate;
 	Date endDate;
-	public Class() {
+	public Course() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Class(int classId, String className, Set<Student> students, Tutor tutor, Date startDate, Date endDate) {
+	public Course(int courseId, String courseName, Set<Student> students, Tutor tutor, Date startDate, Date endDate) {
 		super();
-		this.classId = classId;
-		this.className = className;
+		this.courseId = courseId;
+		this.courseName = courseName;
 		this.students = students;
 		this.tutor = tutor;
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
-	public int getClassId() {
-		return classId;
+	public int getCourseId() {
+		return courseId;
 	}
-	public void setClassId(int classId) {
-		this.classId = classId;
+	public void setCourseId(int CourseId) {
+		this.courseId = CourseId;
 	}
-	public String getClassName() {
-		return className;
+	public String getCourseName() {
+		return courseName;
 	}
-	public void setClassName(String className) {
-		this.className = className;
+	public void setCourseName(String CourseName) {
+		this.courseName = CourseName;
 	}
 	public Set<Student> getStudents() {
 		return students;

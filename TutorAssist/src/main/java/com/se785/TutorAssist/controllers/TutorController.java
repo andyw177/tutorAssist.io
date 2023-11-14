@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.se785.TutorAssist.exceptions.UserNotFoundException;
-import com.se785.TutorAssist.models.Class;
+import com.se785.TutorAssist.models.Course;
 import com.se785.TutorAssist.models.Tutor;
 import com.se785.TutorAssist.models.Student;
 import com.se785.TutorAssist.services.TutorService;
@@ -76,9 +76,9 @@ public class TutorController {
     }
     
 	//Provides a list of Clatses on the database that match a given criteria and sends it back as JSON.
-    @GetMapping(value="/getClasses/{id}")
-    public ResponseEntity<Set<Class>> getClatsList(@PathVariable("id") int id)throws UserNotFoundException {
-		return new ResponseEntity<>(ts.getClassList(id),HttpStatus.FOUND); 
+    @GetMapping(value="/getCoursees/{id}")
+    public ResponseEntity<Set<Course>> getClatsList(@PathVariable("id") int id)throws UserNotFoundException {
+		return new ResponseEntity<>(ts.getCourseList(id),HttpStatus.FOUND); 
 	
     }
 

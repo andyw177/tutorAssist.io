@@ -54,14 +54,14 @@ public class Student implements Serializable{
 //	@ManyToMany @Column
 //	@JsonIgnoreProperties({"students"})
 	
-	Set<Class> classes;
+	Set<Course> courses;
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Student(int studentId, String firstName, String lastName, String username, String password, String email,
 			String birthdate, String gender, String securityQues, String securityAns, boolean isAdmin, int rating,
-			Set<Class> classes) {
+			Set<Course> courses) {
 		super();
 		this.studentId = studentId;
 		this.firstName = firstName;
@@ -75,7 +75,7 @@ public class Student implements Serializable{
 		this.securityAns = securityAns;
 		this.isAdmin = isAdmin;
 		this.rating = rating;
-		this.classes = classes;
+		this.courses = courses;
 	}
 	public int getStudentId() {
 		return studentId;
@@ -149,11 +149,11 @@ public class Student implements Serializable{
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
-	public Set<Class> getClasses() {
-		return classes;
+	public Set<Course> getCourses() {
+		return courses;
 	}
-	public void setClasses(Set<Class> classes) {
-		this.classes = classes;
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
 	}
 	
 	

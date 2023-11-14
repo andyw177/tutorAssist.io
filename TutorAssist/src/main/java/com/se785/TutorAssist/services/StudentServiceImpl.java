@@ -11,10 +11,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.se785.TutorAssist.daos.ClassRepository;
+import com.se785.TutorAssist.daos.CourseRepository;
 import com.se785.TutorAssist.daos.StudentRepository;
 import com.se785.TutorAssist.daos.TutorRepository;
-import com.se785.TutorAssist.models.Class;
+import com.se785.TutorAssist.models.Course;
 import com.se785.TutorAssist.models.Student;
 import com.se785.TutorAssist.models.Tutor;
 
@@ -48,9 +48,9 @@ public class StudentServiceImpl implements StudentService {
 		return true;
 	}
 	@Override
-	public Set<Class> getClassList(int studentId) {
+	public Set<Course> getCourseList(int studentId) {
 		Student student = sr.findByStudentId(studentId);
-		return student.getClasses();
+		return student.getCourses();
 	}
 
 	@Override
@@ -61,10 +61,10 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public Map<String, Tutor> getTutorList(int studentId) {
 		Student student = sr.findByStudentId(studentId);
-		Set<Class> classes = student.getClasses();
+		Set<Course> coursees = student.getCourses();
 		Map<String, Tutor> tutorList = new HashMap<String, Tutor>();
-		for(Class c:classes) {
-			tutorList.put(c.getClassName(),c.getTutor());
+		for(Course c:coursees) {
+			tutorList.put(c.getCourseName(),c.getTutor());
 			
 		}
 		return tutorList;

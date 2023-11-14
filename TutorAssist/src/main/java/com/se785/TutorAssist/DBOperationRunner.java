@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.se785.TutorAssist.daos.ClassRepository;
+import com.se785.TutorAssist.daos.CourseRepository;
 import com.se785.TutorAssist.daos.StudentRepository;
 import com.se785.TutorAssist.daos.TutorRepository;
 import com.se785.TutorAssist.models.Student;
 import com.se785.TutorAssist.models.Tutor;
-import com.se785.TutorAssist.models.Class;
+import com.se785.TutorAssist.models.Course;
 
 @Component
 public class DBOperationRunner implements CommandLineRunner {
@@ -23,7 +23,7 @@ public class DBOperationRunner implements CommandLineRunner {
 	StudentRepository studentRepo;
 
 	@Autowired
-	ClassRepository classRepo;
+	CourseRepository classRepo;
 
 	@Autowired 
 	TutorRepository tutorRepo;
@@ -59,10 +59,10 @@ public class DBOperationRunner implements CommandLineRunner {
 		tutor2.setTutorId(tutorRepo.findByUsername(tutor2.getUsername()).getTutorId());
 		
 	
-		Class[] classArray = new Class[]{
-			new Class(1, "math",new HashSet<>(Arrays.asList(stuArray)),tutor,new Date(10),new Date(10)),
-			new Class(2, "science",new HashSet<>(Arrays.asList(stuArray)),tutor,new Date(20),new Date(20)),
-			new Class(3, "english",new HashSet<>(Arrays.asList(stuArray)), tutor2,new Date(20),new Date(20))
+		Course[] classArray = new Course[]{
+			new Course(1, "math",new HashSet<>(Arrays.asList(stuArray)),tutor,new Date(10),new Date(10)),
+			new Course(2, "science",new HashSet<>(Arrays.asList(stuArray)),tutor,new Date(20),new Date(20)),
+			new Course(3, "english",new HashSet<>(Arrays.asList(stuArray)), tutor2,new Date(20),new Date(20))
 		}; 
 	
 		classRepo.saveAll(Arrays.asList(classArray));
