@@ -10,6 +10,5 @@ import com.se785.TutorAssist.models.Student;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer>{
 	Student findByStudentId(int id);
-	List<Student> findAll(); 
 	Student findByUsername(String username);
 }

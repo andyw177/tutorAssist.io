@@ -11,8 +11,10 @@ spring:
       ddl-auto: update
   jackson:
     serialization:
-      fail-on-empty-beans: false  
-      
+      fail-on-empty-beans: false   
+  mvc:
+     pathmatch:
+       matching-strategy: ANT_PATH_MATCHER      
 management:
   endpoint:
     shutdown:
