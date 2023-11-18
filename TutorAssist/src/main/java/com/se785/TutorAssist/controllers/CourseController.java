@@ -51,10 +51,10 @@ public class CourseController {
 	    @DeleteMapping(value="/delete/{id}")
 	    public ResponseEntity<String> deleteRequest(@PathVariable("id") int id) {
 	    	if(cs.deleteCourse(id)) {
-				return new ResponseEntity<>(HttpStatus.FOUND); 
+				return new ResponseEntity<>(HttpStatus.OK); 
 			}else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
-			}
+			}s
 	    }
 	    
 		//Provides a Users on the database that matches a given criteria and sends it back as JSON.
@@ -64,7 +64,7 @@ public class CourseController {
 	    	if(course == null) {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
 			}else {
-				return new ResponseEntity<>(course,HttpStatus.FOUND); 
+				return new ResponseEntity<>(course,HttpStatus.OK); 
 			}
 	    }
 	

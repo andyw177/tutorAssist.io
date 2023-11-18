@@ -59,7 +59,7 @@ public class StudentController {
     @DeleteMapping(value="/delete/{id}")
     public ResponseEntity<String> deleteRequest(@PathVariable("id") int id) throws UserNotFoundException {
     	if(ss.deleteStudent(id)) {
-			return new ResponseEntity<>(HttpStatus.FOUND); 
+			return new ResponseEntity<>(HttpStatus.OK); 
 		}else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
 		}
@@ -72,27 +72,27 @@ public class StudentController {
     	if(student == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
 		}else {
-			return new ResponseEntity<>(student,HttpStatus.FOUND); 
+			return new ResponseEntity<>(student,HttpStatus.OK); 
 		}
     }
     
 	//Provides a list of Coursees on the database that match a given criteria and sends it back as JSON.
     @GetMapping(value="/getCourses/{id}")
     public ResponseEntity<Set<Course>> getCourseList(@PathVariable("id") int id)throws UserNotFoundException {
-		return new ResponseEntity<>(ss.getCourseList(id),HttpStatus.FOUND); 
+		return new ResponseEntity<>(ss.getCourseList(id),HttpStatus.OK); 
 	
     }
 
 	//Provides the information of every single Student on the database and sends it back as JSON.
     @GetMapping(value="/getStudents")
     public ResponseEntity<Set<Student>> getStudentList() throws UserNotFoundException {
-    	return new ResponseEntity<>(ss.getAllStudents(),HttpStatus.FOUND); 
+    	return new ResponseEntity<>(ss.getAllStudents(),HttpStatus.OK); 
     }
     
     //Provides a list of Tutors on the database that match a given criteria and sends it back as JSON.    @GetMapping(value="/getTutors/{id}")
     @GetMapping(value="/getTutors/{id}")
     public ResponseEntity<Map<String, Tutor>> getTutorList(@PathVariable("id") int id) throws UserNotFoundException {
-    	return new ResponseEntity<>(ss.getTutorList(id),HttpStatus.FOUND); 
+    	return new ResponseEntity<>(ss.getTutorList(id),HttpStatus.OK); 
     }
 	
 }

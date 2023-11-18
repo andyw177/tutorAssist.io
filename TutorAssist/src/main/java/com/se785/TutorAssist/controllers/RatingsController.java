@@ -51,7 +51,7 @@ private RatingService rs;
 	    @DeleteMapping(value="/delete/{id}")
 	    public ResponseEntity<String> deleteRequest(@PathVariable("id") int id) {
 	    	if(rs.deleteRating(id)) {
-				return new ResponseEntity<>(HttpStatus.FOUND); 
+				return new ResponseEntity<>(HttpStatus.OK); 
 			}else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
 			}
@@ -64,7 +64,7 @@ private RatingService rs;
 	    	if(rating == null) {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
 			}else {
-				return new ResponseEntity<>(rating,HttpStatus.FOUND); 
+				return new ResponseEntity<>(rating,HttpStatus.OK); 
 			}
 	    }
 	
