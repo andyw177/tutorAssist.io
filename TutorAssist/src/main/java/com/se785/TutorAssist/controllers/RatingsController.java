@@ -34,14 +34,14 @@ private RatingService rs;
 	    @PostMapping(value="/create")
 	    public HttpStatus createRequest(@RequestBody Rating rating) {
 	    	rs.createRating(rating);
-			return HttpStatus.CREATED;
+			return HttpStatus.OK;
 	    }
 	    
 	    //Updates a Users entry in the database using the given information.
 	    @PutMapping(value="/update")
 	    public ResponseEntity<String> updateRequest(@RequestBody Rating rating){
 			if(rs.updateRating(rating)) {
-				return new ResponseEntity<>(HttpStatus.ACCEPTED); 
+				return new ResponseEntity<>(HttpStatus.OK); 
 			}else {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 			}
@@ -51,9 +51,9 @@ private RatingService rs;
 	    @DeleteMapping(value="/delete/{id}")
 	    public ResponseEntity<String> deleteRequest(@PathVariable("id") int id) {
 	    	if(rs.deleteRating(id)) {
-				return new ResponseEntity<>(HttpStatus.FOUND); 
+				return new ResponseEntity<>(HttpStatus.OK); 
 			}else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 			}
 	    }
 	    
@@ -62,9 +62,9 @@ private RatingService rs;
 	    public ResponseEntity<Rating> getRequest(@PathVariable("id") int id) {
 	    	Rating rating = rs.getRatingById(id);
 	    	if(rating == null) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 			}else {
-				return new ResponseEntity<>(rating,HttpStatus.FOUND); 
+				return new ResponseEntity<>(rating,HttpStatus.OK); 
 			}
 	    }
 	

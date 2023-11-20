@@ -34,14 +34,14 @@ public class CourseController {
 	    @PostMapping(value="/create")
 	    public HttpStatus createRequest(@RequestBody Course course) {
 	    	cs.createCourse(course);
-			return HttpStatus.CREATED;
+			return HttpStatus.OK;
 	    }
 	    
 	    //Updates a Users entry in the database using the given information.
 	    @PutMapping(value="/update")
 	    public ResponseEntity<String> updateRequest(@RequestBody Course course){
 			if(cs.updateCourse(course)) {
-				return new ResponseEntity<>(HttpStatus.ACCEPTED); 
+				return new ResponseEntity<>(HttpStatus.OK); 
 			}else {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 			}
@@ -51,9 +51,9 @@ public class CourseController {
 	    @DeleteMapping(value="/delete/{id}")
 	    public ResponseEntity<String> deleteRequest(@PathVariable("id") int id) {
 	    	if(cs.deleteCourse(id)) {
-				return new ResponseEntity<>(HttpStatus.FOUND); 
+				return new ResponseEntity<>(HttpStatus.OK); 
 			}else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 			}
 	    }
 	    
@@ -62,9 +62,9 @@ public class CourseController {
 	    public ResponseEntity<Course> getRequest(@PathVariable("id") int id) {
 	    	Course course = cs.findByCourseid(id);
 	    	if(course == null) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 			}else {
-				return new ResponseEntity<>(course,HttpStatus.FOUND); 
+				return new ResponseEntity<>(course,HttpStatus.OK); 
 			}
 	    }
 	

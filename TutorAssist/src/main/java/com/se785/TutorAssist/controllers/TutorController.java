@@ -41,14 +41,14 @@ public class TutorController {
     @PostMapping(value="/create")
     public HttpStatus createRequest(@RequestBody Tutor tutor) {
     	ts.createTutor(tutor);
-		return HttpStatus.CREATED;
+		return HttpStatus.OK;
     }
     
     //Updates a Users entry in the database using the given information.
     @PutMapping(value="/update")
     public ResponseEntity<String> updateRequest(@RequestBody Tutor Tutor) throws UserNotFoundException {
 		if(ts.updateTutor(Tutor)) {
-			return new ResponseEntity<>(HttpStatus.ACCEPTED); 
+			return new ResponseEntity<>(HttpStatus.OK); 
 		}else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 		}
@@ -58,9 +58,9 @@ public class TutorController {
     @DeleteMapping(value="/delete/{id}")
     public ResponseEntity<String> deleteRequest(@PathVariable("id") int id) throws UserNotFoundException {
     	if(ts.deleteTutor(id)) {
-			return new ResponseEntity<>(HttpStatus.FOUND); 
+			return new ResponseEntity<>(HttpStatus.OK); 
 		}else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 		}
     }
     
@@ -69,28 +69,28 @@ public class TutorController {
     public ResponseEntity<Tutor> getRequest(@PathVariable("id") int id) throws UserNotFoundException {
     	Tutor Tutor = ts.getTutorById(id);
     	if(Tutor == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 		}else {
-			return new ResponseEntity<>(Tutor,HttpStatus.FOUND); 
+			return new ResponseEntity<>(Tutor,HttpStatus.OK); 
 		}
     }
     
 	//Provides a list of Clatses on the database that match a given criteria and sends it back as JSON.
     @GetMapping(value="/getCourses/{id}")
     public ResponseEntity<Set<Course>> getClatsList(@PathVariable("id") int id)throws UserNotFoundException {
-		return new ResponseEntity<>(ts.getCourseList(id),HttpStatus.FOUND); 
+		return new ResponseEntity<>(ts.getCourseList(id),HttpStatus.OK); 
 	
     }
 
 	//Provides the information of every single Tutor on the database and sends it back as JSON.
     @GetMapping(value="/getTutors")
     public ResponseEntity<Set<Tutor>> getTutorList() throws UserNotFoundException {
-    	return new ResponseEntity<>(ts.getAllTutors(),HttpStatus.FOUND); 
+    	return new ResponseEntity<>(ts.getAllTutors(),HttpStatus.OK); 
     }
     
     //Provides a list of Tutors on the database that match a given criteria and sends it back as JSON.    @GetMapping(value="/getTutors/{id}")
     @GetMapping(value="/getStudents/{id}")
     public ResponseEntity <Map<String, Set<Student>>> getStudentList(@PathVariable("id") int id) throws UserNotFoundException {
-    	return new ResponseEntity<>(ts.getStudentList(id),HttpStatus.FOUND); 
+    	return new ResponseEntity<>(ts.getStudentList(id),HttpStatus.OK); 
     }
 }
