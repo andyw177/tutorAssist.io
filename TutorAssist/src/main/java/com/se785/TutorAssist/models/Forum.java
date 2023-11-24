@@ -6,12 +6,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Forum {
 	@Id
 	@GeneratedValue
 	int forumId;
 	int userId;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	Date date;
 	String title;
 	String body;

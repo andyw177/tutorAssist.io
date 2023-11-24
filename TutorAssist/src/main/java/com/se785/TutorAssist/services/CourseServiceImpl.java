@@ -7,16 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.se785.TutorAssist.daos.CourseRepository;
+import com.se785.TutorAssist.daos.StudentRepository;
 import com.se785.TutorAssist.models.Course;
+import com.se785.TutorAssist.models.Student;
 
 @Service
 public class CourseServiceImpl implements CourseService{
 	private CourseRepository cr;
+	private StudentRepository sr;
 	
 	@Autowired
-	public CourseServiceImpl(CourseRepository cr) {
+	public CourseServiceImpl(CourseRepository cr,StudentRepository sr) {
 		super();
 		this.cr = cr;
+		this.sr = sr;
 	}
 
 	@Override
@@ -50,6 +54,28 @@ public class CourseServiceImpl implements CourseService{
 		Set <Course> courses = new HashSet<Course>();
 		courses.addAll(cr.findAll());
 		return courses;
+	}
+
+	@Override
+	public boolean enroll(int classId, int studentId) {
+		Course course = cr.findByCourseId(classId);
+		Student s = sr.findByStudentId(studentId);
+		
+		
+		if(s == null || course == null) {
+			return true;
+		}else {
+			Set<Student> stu = course.getStudents();
+			if(stu == null) {
+				stu = new HashSet<Student>();
+				stu.add(s);
+			}else {
+				stu.add(s);
+			}
+			course.setStudents(stu);
+			return true;
+			
+		}
 	}
 
 }

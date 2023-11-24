@@ -11,6 +11,7 @@ public interface CourseService {
 	public abstract boolean deleteCourse(int id);
 	public abstract Course getByCourseid(int id);
 	public abstract Set<Course> getAllCourses();
+	public abstract boolean enroll(int classId, int studentId);
 
 	
 }
