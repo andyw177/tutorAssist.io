@@ -41,12 +41,12 @@ public class CourseServiceImpl implements CourseService{
 	}
 
 	@Override
-	public Course findByCourseid(int id) {
+	public Course getByCourseid(int id) {
 		return cr.findByCourseId(id);
 	}
 
 	@Override
-	public Set<Course> findAllCourses() {
+	public Set<Course> getAllCourses() {
 		Set <Course> courses = new HashSet<Course>();
 		courses.addAll(cr.findAll());
 		return courses;

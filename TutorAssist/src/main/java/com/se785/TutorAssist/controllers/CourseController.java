@@ -60,7 +60,7 @@ public class CourseController {
 		//Provides a Users on the database that matches a given criteria and sends it back as JSON.
 	    @GetMapping(value="/get/{id}")
 	    public ResponseEntity<Course> getRequest(@PathVariable("id") int id) {
-	    	Course course = cs.findByCourseid(id);
+	    	Course course = cs.getByCourseid(id);
 	    	if(course == null) {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 			}else {
