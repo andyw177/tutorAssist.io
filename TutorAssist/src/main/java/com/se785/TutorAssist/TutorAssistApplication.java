@@ -18,21 +18,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 @SpringBootApplication
+
 public class TutorAssistApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TutorAssistApplication.class, args);
 	}
 
-	@Configuration
-	@EnableWebMvc
-	public class WebConfig implements WebMvcConfigurer {
-
-	    @Override
-	    public void addCorsMappings(CorsRegistry registry) {
-	        registry.addMapping("/**");
-	    }
-	}
 	
 	@Bean
 	public Docket api() {
