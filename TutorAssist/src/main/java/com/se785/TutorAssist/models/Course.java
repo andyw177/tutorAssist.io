@@ -16,7 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 
@@ -42,7 +42,9 @@ public class Course implements Serializable {
 	@JoinColumn(name="tutorId", nullable = false)
 	@JsonIgnoreProperties({"courses"})
 	Tutor tutor;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	Date startDate;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	Date endDate;
 	public Course() {
 		super();

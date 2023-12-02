@@ -42,14 +42,14 @@ public class StudentController {
     @PostMapping(value="/create")
     public HttpStatus createRequest(@RequestBody Student stu) {
     	ss.createStudent(stu);
-		return HttpStatus.CREATED;
+		return HttpStatus.OK;
     }
     
     //Updates a Users entry in the database using the given information.
     @PutMapping(value="/update")
     public ResponseEntity<String> updateRequest(@RequestBody Student student) throws UserNotFoundException {
 		if(ss.updateStudent(student)) {
-			return new ResponseEntity<>(HttpStatus.ACCEPTED); 
+			return new ResponseEntity<>(HttpStatus.OK); 
 		}else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 		}
@@ -61,7 +61,7 @@ public class StudentController {
     	if(ss.deleteStudent(id)) {
 			return new ResponseEntity<>(HttpStatus.OK); 
 		}else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 		}
     }
     
@@ -70,7 +70,7 @@ public class StudentController {
     public ResponseEntity<Student> getRequest(@PathVariable("id") int id) throws UserNotFoundException {
     	Student student = ss.getStudentById(id);
     	if(student == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 		}else {
 			return new ResponseEntity<>(student,HttpStatus.OK); 
 		}

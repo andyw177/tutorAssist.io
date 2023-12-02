@@ -54,8 +54,13 @@ public class CourseController {
 	    	if(cs.deleteCourse(id)) {
 				return new ResponseEntity<>(HttpStatus.OK); 
 			}else {
+<<<<<<< HEAD
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+			}s
+=======
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 			}
+>>>>>>> d764cc34d35fce34fc643b9af7520d2152750e63
 	    }
 	    
 		//Provides a Course on the database that matches a given criteria and sends it back as JSON.
@@ -66,6 +71,8 @@ public class CourseController {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 			}else {
 				return new ResponseEntity<>(course,HttpStatus.OK); 
+<<<<<<< HEAD
+=======
 			}
 	    }
 	    
@@ -76,6 +83,7 @@ public class CourseController {
 	    	return new ResponseEntity<>(HttpStatus.OK); 
 			}else {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+>>>>>>> d764cc34d35fce34fc643b9af7520d2152750e63
 			}
 	    	
 	    }

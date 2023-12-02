@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.se785.TutorAssist.models.Rating;
-import com.se785.TutorAssist.services.RatingService;
+import com.se785.TutorAssist.models.Course;
+import com.se785.TutorAssist.services.CourseService;
 
 @RestController
-@RequestMapping("\ratings")
-public class RatingsController {
-private RatingService rs;
+@RequestMapping("/Course")
+public class CourseController {
+	private CourseService cs;
 	
 	@Autowired
-	public RatingsController(RatingService rs) {
+	public CourseController(CourseService cs) {
 		super();
-		this.rs = rs;
+		this.cs = cs;
 	}
 	// Test Route
 		@GetMapping("/test")
@@ -32,16 +32,16 @@ private RatingService rs;
 		}
 		 //Creates a new User entry in the database using the given information.
 	    @PostMapping(value="/create")
-	    public HttpStatus createRequest(@RequestBody Rating rating) {
-	    	rs.createRating(rating);
-			return HttpStatus.OK;
+	    public HttpStatus createRequest(@RequestBody Course course) {
+	    	cs.createCourse(course);
+			return HttpStatus.CREATED;
 	    }
 	    
 	    //Updates a Users entry in the database using the given information.
 	    @PutMapping(value="/update")
-	    public ResponseEntity<String> updateRequest(@RequestBody Rating rating){
-			if(rs.updateRating(rating)) {
-				return new ResponseEntity<>(HttpStatus.OK); 
+	    public ResponseEntity<String> updateRequest(@RequestBody Course course){
+			if(cs.updateCourse(course)) {
+				return new ResponseEntity<>(HttpStatus.ACCEPTED); 
 			}else {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 			}
@@ -50,22 +50,24 @@ private RatingService rs;
 	    //Deletes a Users entry in the database using the given information.
 	    @DeleteMapping(value="/delete/{id}")
 	    public ResponseEntity<String> deleteRequest(@PathVariable("id") int id) {
-	    	if(rs.deleteRating(id)) {
+	    	if(cs.deleteCourse(id)) {
 				return new ResponseEntity<>(HttpStatus.OK); 
 			}else {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
-			}
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+			}s
 	    }
 	    
 		//Provides a Users on the database that matches a given criteria and sends it back as JSON.
 	    @GetMapping(value="/get/{id}")
-	    public ResponseEntity<Rating> getRequest(@PathVariable("id") int id) {
-	    	Rating rating = rs.getRatingById(id);
-	    	if(rating == null) {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+	    public ResponseEntity<Course> getRequest(@PathVariable("id") int id) {
+	    	Course course = cs.findByCourseid(id);
+	    	if(course == null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
 			}else {
-				return new ResponseEntity<>(rating,HttpStatus.OK); 
+				return new ResponseEntity<>(course,HttpStatus.OK); 
 			}
 	    }
+	
+	
 	
 }

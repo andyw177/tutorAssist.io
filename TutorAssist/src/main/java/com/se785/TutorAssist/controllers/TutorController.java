@@ -41,14 +41,14 @@ public class TutorController {
     @PostMapping(value="/create")
     public HttpStatus createRequest(@RequestBody Tutor tutor) {
     	ts.createTutor(tutor);
-		return HttpStatus.CREATED;
+		return HttpStatus.OK;
     }
     
     //Updates a Users entry in the database using the given information.
     @PutMapping(value="/update")
     public ResponseEntity<String> updateRequest(@RequestBody Tutor Tutor) throws UserNotFoundException {
 		if(ts.updateTutor(Tutor)) {
-			return new ResponseEntity<>(HttpStatus.ACCEPTED); 
+			return new ResponseEntity<>(HttpStatus.OK); 
 		}else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 		}
@@ -60,7 +60,7 @@ public class TutorController {
     	if(ts.deleteTutor(id)) {
 			return new ResponseEntity<>(HttpStatus.OK); 
 		}else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 		}
     }
     
@@ -69,7 +69,7 @@ public class TutorController {
     public ResponseEntity<Tutor> getRequest(@PathVariable("id") int id) throws UserNotFoundException {
     	Tutor Tutor = ts.getTutorById(id);
     	if(Tutor == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 		}else {
 			return new ResponseEntity<>(Tutor,HttpStatus.OK); 
 		}
