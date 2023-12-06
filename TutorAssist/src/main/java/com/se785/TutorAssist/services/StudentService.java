@@ -1,6 +1,5 @@
 package com.se785.TutorAssist.services;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,6 +15,6 @@ public interface StudentService {
 	public abstract boolean updateStudent(Student student);
 	public abstract Student getStudentById(int studentId);
 	public abstract Set<Student> getAllStudents();
-	
+	public abstract Student getStudentByUsername(String username);
 	
 }

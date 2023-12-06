@@ -9,6 +9,5 @@ import com.se785.TutorAssist.models.Tutor;
 public interface TutorRepository extends JpaRepository<Tutor,Integer>{
 	Tutor findByTutorId(int id);
 	List<Tutor> findAll();
-	Tutor findByUsername(String username);
-
+	Tutor findByUsername(String username); 
 }
