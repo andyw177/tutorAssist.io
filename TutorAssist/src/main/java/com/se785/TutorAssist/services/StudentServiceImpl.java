@@ -75,5 +75,11 @@ public class StudentServiceImpl implements StudentService {
 		students.addAll(sr.findAll());
 		return students;
 	}
+	
+	@Override
+	public Student getStudentByUsername(String username) {
+		return sr.findByUsername(username);
+		
+	}
 
 }

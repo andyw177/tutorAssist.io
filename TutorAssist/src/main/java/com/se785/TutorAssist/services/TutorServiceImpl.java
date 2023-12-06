@@ -75,5 +75,11 @@ public class TutorServiceImpl implements TutorService{
 		tutors.addAll(tr.findAll());
 		return tutors;
 	}
+	
+	@Override
+	public Tutor getTutorByUsername(String username) {
+		return tr.findByUsername(username);
+		
+	}
 
 }

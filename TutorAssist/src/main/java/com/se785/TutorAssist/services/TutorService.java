@@ -14,5 +14,6 @@ public interface TutorService {
 	public abstract boolean deleteTutor(int id);
 	public abstract boolean updateTutor(Tutor tutor);
 	public abstract Tutor getTutorById(int id);
+	public abstract Tutor getTutorByUsername(String username);
 	public abstract Set<Tutor> getAllTutors();
 }

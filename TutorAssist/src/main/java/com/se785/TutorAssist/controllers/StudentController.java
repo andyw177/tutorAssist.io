@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.se785.TutorAssist.exceptions.UserNotFoundException;
+import com.se785.TutorAssist.jwt.AuthenticationException;
 import com.se785.TutorAssist.models.Student;
 import com.se785.TutorAssist.models.Tutor;
 import com.se785.TutorAssist.models.Course;
@@ -94,5 +96,4 @@ public class StudentController {
     public ResponseEntity<Map<String, Tutor>> getTutorList(@PathVariable("id") int id) throws UserNotFoundException {
     	return new ResponseEntity<>(ss.getTutorList(id),HttpStatus.OK); 
     }
-	
 }
