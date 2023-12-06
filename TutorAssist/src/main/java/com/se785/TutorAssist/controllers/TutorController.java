@@ -77,7 +77,7 @@ public class TutorController {
     
 	//Provides a list of Clatses on the database that match a given criteria and sends it back as JSON.
     @GetMapping(value="/getCourses/{id}")
-    public ResponseEntity<Set<Course>> getClatsList(@PathVariable("id") int id)throws UserNotFoundException {
+    public ResponseEntity<Set<Course>> getClassList(@PathVariable("id") int id)throws UserNotFoundException {
 		return new ResponseEntity<>(ts.getCourseList(id),HttpStatus.OK); 
 	
     }

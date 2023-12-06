@@ -67,5 +67,15 @@ private RatingService rs;
 				return new ResponseEntity<>(rating,HttpStatus.OK); 
 			}
 	    }
+	    
+	    @PutMapping(value="/rate/{id}")
+	    public ResponseEntity<String> RateAverage(@PathVariable("id") int id) {
+	    	if(rs.setAverageRating(id)) {
+				return new ResponseEntity<>(HttpStatus.OK); 
+			}else {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+			}
+	    }
+	    
 	
 }

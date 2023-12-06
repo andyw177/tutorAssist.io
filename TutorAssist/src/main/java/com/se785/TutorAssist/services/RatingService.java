@@ -10,5 +10,10 @@ public interface RatingService {
 	public abstract boolean deleteRating(int id);
 	public abstract Rating getRatingById(int id);
 	public abstract Set<Rating> getAllRatings();
-	public abstract Set<Rating> getRatingByUserId(int id);
+	public abstract Set<Rating> getAllRatingsByUserId(int id);
+	public abstract Set<Rating> getAllRatingsByTutorId(int id);
+	public abstract boolean setAverageRating(int tutorID);
+
+
+
 }
