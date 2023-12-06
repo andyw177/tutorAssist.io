@@ -35,10 +35,10 @@ public class DBOperationRunner implements CommandLineRunner {
 		studentRepo.deleteAllInBatch();
 		tutorRepo.deleteAllInBatch();
 		
-		Student stu1 = new Student(1,"first","last","root","pass","test@gmail.com","1999","female","question1","answer1",true,0, null);
-        Student stu2 =new Student(2,"first1","last1","user1","pass1","test1@gmail.com","1999","male","question1","answer1",false,0, null);
-        Student stu3 =new Student(3,"first2","last2","user2","pass2","test2@gmail.com","1999","female","question1","answer1",false,0, null);
-        Student stu4 =new Student(4,"first3","last3","user3","pass3","test3@gmail.com","1999","male","question1","answer1",false,0, null);
+		Student stu1 = new Student(1,"student","last","root","pass","test@gmail.com","1999","female","question1","answer1",true,0, null);
+        Student stu2 =new Student(2,"student1","last1","student1","pass1","test1@gmail.com","1999","male","question1","answer1",false,0, null);
+        Student stu3 =new Student(3,"student2","last2","student2","pass2","test2@gmail.com","1999","female","question1","answer1",false,0, null);
+        Student stu4 =new Student(4,"student3","last3","student3","pass3","test3@gmail.com","1999","male","question1","answer1",false,0, null);
 		Student[] stuArray = new Student[]{stu1,stu2,stu3,stu4};
 	
 	
@@ -50,8 +50,8 @@ public class DBOperationRunner implements CommandLineRunner {
 		stu4.setStudentId(studentRepo.findByUsername(stu4.getUsername()).getStudentId());
 		stuArray = new Student[]{stu1,stu2,stu3,stu4};
 		
-		Tutor tutor = new Tutor(1,"first","last","user","pass","test@gmail.com","PACE","MBA","CSE",new Date(900),"question","answer",false,0,null);
-		Tutor tutor2 = new Tutor(2,"first2","last2","user2","pass2","test2@gmail.com","PACE","MBA","CSE",new Date(900),"question2","answer2",false,0,null);
+		Tutor tutor = new Tutor(1,"tutor","last","tutor","pass","test@gmail.com","PACE","MBA","CSE",new Date(900),"question","answer",false,0,null);
+		Tutor tutor2 = new Tutor(2,"tutor2","last2","tutor2","pass2","test2@gmail.com","PACE","MBA","CSE",new Date(900),"question2","answer2",false,0,null);
 		Tutor[] tutArray = new Tutor[] {tutor,tutor2};
 
 		tutorRepo.saveAll(Arrays.asList(tutArray));

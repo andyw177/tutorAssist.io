@@ -7,15 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.se785.TutorAssist.daos.RatingsRepository;
+import com.se785.TutorAssist.daos.TutorRepository;
 import com.se785.TutorAssist.models.Rating;
+import com.se785.TutorAssist.models.Tutor;
 @Service
 public class RatingServiceImpl implements RatingService {
 	RatingsRepository rr;
+	TutorRepository tr;
 	
 	@Autowired
-	public RatingServiceImpl(RatingsRepository rr) {
+	public RatingServiceImpl(RatingsRepository rr,TutorRepository tr) {
 		super();
 		this.rr = rr;
+		this.tr = tr;
 	}
 
 	@Override
@@ -51,10 +55,36 @@ public class RatingServiceImpl implements RatingService {
 	}
 
 	@Override
-	public Set<Rating> getRatingByUserId(int id) {
+	public Set<Rating> getAllRatingsByUserId(int id) {
 		Set<Rating> ratings = new HashSet<Rating>();
 		ratings.addAll(rr.findRatingByUserId(id));
-		return null;
+		return ratings;
+	}
+
+	@Override
+	public Set<Rating> getAllRatingsByTutorId(int id) {
+		Set<Rating> ratings = new HashSet<Rating>();
+		ratings.addAll(rr.findRatingByTutorId(id));
+		return ratings;
+	}
+
+	@Override
+	public boolean setAverageRating(int tutorID) {
+		Set<Rating> ratings = new HashSet<Rating>();
+		ratings.addAll(rr.findRatingByTutorId(tutorID));
+		int sum = 0,average = 0;
+		for(Rating r: ratings) {
+			sum += r.getNumRated();
+		}
+		average = sum / ratings.size();
+		Tutor tutor = tr.findByTutorId(tutorID);
+		if (tutor == null) {
+			return false;
+		}else {
+			tutor.setRating(average);
+			tr.save(tutor);
+			return true;
+		}
 	}
 
 }

@@ -11,6 +11,6 @@ import com.se785.TutorAssist.models.Rating;
 public interface RatingsRepository extends JpaRepository<Rating,Integer> {
 	public abstract Rating findByRatingId(int id);
 	public abstract List<Rating> findRatingByUserId(int id);
-	
+	public abstract List<Rating> findRatingByTutorId(int id);
 	
 }

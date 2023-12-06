@@ -42,8 +42,6 @@ public class Student implements Serializable{
 	String securityAns;
 	@Column(nullable = false)
 	boolean isAdmin;
-	@Column
-	int rating;
 	
 	
 	@ManyToMany(mappedBy = "students", cascade = {
@@ -60,8 +58,7 @@ public class Student implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	public Student(int studentId, String firstName, String lastName, String username, String password, String email,
-			String birthdate, String gender, String securityQues, String securityAns, boolean isAdmin, int rating,
-			Set<Course> courses) {
+			String birthdate, String gender, String securityQues, String securityAns, boolean isAdmin, Set<Course> courses) {
 		super();
 		this.studentId = studentId;
 		this.firstName = firstName;
@@ -74,7 +71,6 @@ public class Student implements Serializable{
 		this.securityQues = securityQues;
 		this.securityAns = securityAns;
 		this.isAdmin = isAdmin;
-		this.rating = rating;
 		this.courses = courses;
 	}
 	public int getStudentId() {
@@ -143,12 +139,7 @@ public class Student implements Serializable{
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
-	public int getRating() {
-		return rating;
-	}
-	public void setRating(int rating) {
-		this.rating = rating;
-	}
+
 	public Set<Course> getCourses() {
 		return courses;
 	}
