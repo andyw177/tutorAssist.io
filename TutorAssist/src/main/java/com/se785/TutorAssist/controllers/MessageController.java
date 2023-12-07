@@ -1,8 +1,13 @@
 package com.se785.TutorAssist.controllers;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.se785.TutorAssist.jwt.AuthenticationException;
 import com.se785.TutorAssist.models.Message;
+import com.se785.TutorAssist.models.Student;
 import com.se785.TutorAssist.services.MessageService;
+import com.se785.TutorAssist.services.StudentService;
+import com.se785.TutorAssist.services.TutorService;
 
 @RestController
 @RequestMapping("/messsage")
@@ -28,6 +36,12 @@ public class MessageController {
 		this.ms = ms;
 	}
 	
+	@Autowired
+	private StudentService studentService;
+	
+	@Autowired
+	private TutorService tutorService;
+	
 	// Test Route
 	@GetMapping("/test")
 	public String test(){
@@ -35,9 +49,18 @@ public class MessageController {
 	}
 	 //Creates a new User entry in the database using the given information.
     @PostMapping(value="/create")
-    public HttpStatus createRequest(@RequestBody Message message) {
+    public ResponseEntity<?> createRequest(@RequestBody Message message) {
+    	User current_user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	Collection<GrantedAuthority>roles = current_user.getAuthorities();
+    	
+    	if(roles.iterator().next().getAuthority()=="STUDENT")
+    		message.setSenderId(studentService.getStudentByUsername(current_user.getUsername()).getStudentId());
+    	else
+    		message.setSenderId(tutorService.getTutorByUsername(current_user.getUsername()).getTutorId());
+    	
     	ms.createMessage(message);
-    	return HttpStatus.OK;
+    	
+    	return ResponseEntity.ok(message);
     }
     
     //Updates a Users entry in the database using the given information.
