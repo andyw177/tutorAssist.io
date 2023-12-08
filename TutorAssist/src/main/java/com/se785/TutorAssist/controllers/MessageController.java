@@ -50,6 +50,7 @@ public class MessageController {
 	 //Creates a new User entry in the database using the given information.
     @PostMapping(value="/create")
     public ResponseEntity<?> createRequest(@RequestBody Message message) {
+    	//gets the user from the context
     	User current_user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     	Collection<GrantedAuthority>roles = current_user.getAuthorities();
     	
@@ -57,6 +58,9 @@ public class MessageController {
     		message.setSenderId(studentService.getStudentByUsername(current_user.getUsername()).getStudentId());
     	else
     		message.setSenderId(tutorService.getTutorByUsername(current_user.getUsername()).getTutorId());
+    	
+    	if(message.getSenderId()==message.getReceiverId())
+    		return ResponseEntity.badRequest().body("You can't send a message to yourself!");
     	
     	ms.createMessage(message);
     	

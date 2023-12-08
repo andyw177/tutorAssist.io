@@ -2,6 +2,9 @@ package com.se785.TutorAssist.jwt;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,12 +13,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@JsonIgnoreProperties("password")
 public class JwtUserDetails implements UserDetails {
 
     private static final long serialVersionUID = 5155720064139820502L;
 
     private final Long id;
     private final String username;
+    @JsonIgnore
     private final String password;
     private final Collection<? extends GrantedAuthority> authorities;
 
@@ -30,7 +35,6 @@ public class JwtUserDetails implements UserDetails {
         this.authorities = authorities;
     }
 
-    @JsonIgnore
     public Long getId() {
         return id;
     }
@@ -40,14 +44,16 @@ public class JwtUserDetails implements UserDetails {
         return username;
     }
 
-    @JsonIgnore
+    
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    @JsonIgnore
+    
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
@@ -58,8 +64,9 @@ public class JwtUserDetails implements UserDetails {
         return true;
     }
 
-    @JsonIgnore
+    
     @Override
+    @JsonProperty("password")
     public String getPassword() {
         return password;
     }
