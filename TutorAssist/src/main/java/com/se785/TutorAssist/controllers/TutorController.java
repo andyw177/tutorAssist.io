@@ -26,7 +26,6 @@ import com.se785.TutorAssist.services.TutorService;
 
 @RestController
 @RequestMapping("/tutor")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TutorController {
 	private TutorService ts;
 	

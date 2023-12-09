@@ -26,35 +26,34 @@ import java.util.stream.Collectors;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
-  @Autowired
-  private TutorService tutorService;
+	@Autowired
+	private TutorService tutorService;
 
-  @Autowired
-  private StudentService studentService;
+	@Autowired
+	private StudentService studentService;
 
-  @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-	//look through students first
-	Student res = studentService.getStudentByUsername(username);
+		// ArrayList for authorities
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
-	//if user can not be found in students, look through tutors
-	if(res == null) {
-		//Set<Tutor> tutors = tutorService.getAllTutors();
-		Tutor res_2 =tutorService.getTutorByUsername(username);
+		// look through students first
+		Student res = studentService.getStudentByUsername(username);
 
-		//todo: add different authorities for tutor & students
-		if (res_2==null) {
-		      throw new UsernameNotFoundException("User not found with username: " + username);
-		    }
-		    return new User(res_2.getUsername(), res_2.getPassword(),
-		    		 new ArrayList<GrantedAuthority>(List.of(new SimpleGrantedAuthority("TUTOR"))));
-		  }  else {
-				 return new User(res.getUsername(), res.getPassword(),
-						 new ArrayList<GrantedAuthority>(List.of(new SimpleGrantedAuthority("STUDENT"))));
+		// if user can not be found in students, look through tutors
+		if (res == null) {
+			Tutor res_2 = tutorService.getTutorByUsername(username);
+			if (res_2 == null) {
+				throw new UsernameNotFoundException("User not found with username: " + username);
 			}
-		
+			authorities.add(new SimpleGrantedAuthority("TUTOR"));
+			return new User(res_2.getUsername(), res_2.getPassword(), authorities);
+		} else {
+			authorities.add(new SimpleGrantedAuthority("STUDENT"));
+			return new User(res.getUsername(), res.getPassword(), authorities);
+		}
+
 	}
-    
 
 }

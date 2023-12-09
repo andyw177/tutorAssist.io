@@ -10,15 +10,21 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import com.se785.TutorAssist.services.StudentService;
+import com.se785.TutorAssist.services.TutorService;
+
 import javax.servlet.http.HttpServletRequest;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,8 +35,11 @@ public class JwtAuthenticationRestController {
     @Value("${jwt.http.request.header}")
     private String tokenHeader;
 
-    //@Autowired
-    //private RoommateService roommateService;
+    @Autowired
+    private TutorService tutorService;
+    
+    @Autowired
+    private StudentService studentService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -72,6 +81,18 @@ public class JwtAuthenticationRestController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+    
+    @GetMapping("/myProfile")
+    public ResponseEntity<?> myProfile() {
+    	User current_user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	Collection<GrantedAuthority>roles = current_user.getAuthorities();
+    	
+    	if(roles.iterator().next().getAuthority()=="STUDENT")
+    		return ResponseEntity.ok().body(studentService.getStudentByUsername(current_user.getUsername()));
+    	else
+    		return ResponseEntity.ok().body(tutorService.getTutorByUsername(current_user.getUsername()));
+    }
+    
     @GetMapping("/")
     public String TestError() {
     	

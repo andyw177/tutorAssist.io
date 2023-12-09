@@ -49,6 +49,8 @@ public class DBOperationRunner implements CommandLineRunner {
 		stu3.setStudentId(studentRepo.findByUsername(stu3.getUsername()).getStudentId());
 		stu4.setStudentId(studentRepo.findByUsername(stu4.getUsername()).getStudentId());
 		stuArray = new Student[]{stu1,stu2,stu3,stu4};
+		Student[] stuArray_1 = new Student[]{stu4};
+		Student[] stuArray_2 = new Student[]{stu4,stu2};
 		
 		Tutor tutor = new Tutor(1,"tutor","last","tutor","pass","test@gmail.com","PACE","MBA","CSE",new Date(900),"question","answer",false,0,null);
 		Tutor tutor2 = new Tutor(2,"tutor2","last2","tutor2","pass2","test2@gmail.com","PACE","MBA","CSE",new Date(900),"question2","answer2",false,0,null);
@@ -61,8 +63,8 @@ public class DBOperationRunner implements CommandLineRunner {
 	
 		Course[] classArray = new Course[]{
 			new Course(1, "math",new HashSet<>(Arrays.asList(stuArray)),tutor,new Date(10),new Date(10)),
-			new Course(2, "science",new HashSet<>(Arrays.asList(stuArray)),tutor,new Date(20),new Date(20)),
-			new Course(3, "english",new HashSet<>(Arrays.asList(stuArray)), tutor2,new Date(20),new Date(20))
+			new Course(2, "science",new HashSet<>(Arrays.asList(stuArray_1)),tutor,new Date(20),new Date(20)),
+			new Course(3, "english",new HashSet<>(Arrays.asList(stuArray_2)), tutor2,new Date(20),new Date(20))
 		}; 
 	
 		classRepo.saveAll(Arrays.asList(classArray));
