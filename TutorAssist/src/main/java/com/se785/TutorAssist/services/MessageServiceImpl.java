@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.se785.TutorAssist.daos.MessageRepository;
 import com.se785.TutorAssist.models.Message;
+import com.se785.TutorAssist.templates.AllMessagesResponse;
 
 @Service
 public class MessageServiceImpl implements MessageService{
@@ -41,6 +42,12 @@ public class MessageServiceImpl implements MessageService{
 	@Override
 	public Message getByMessageId(int id) {
 		return mr.findByMessageId(id);
+	}
+	
+	@Override
+	public AllMessagesResponse getAllMessages(int id) {
+		
+		return new AllMessagesResponse(mr.findBySenderId(id),mr.findByReceiverId(id));
 	}
 
 }

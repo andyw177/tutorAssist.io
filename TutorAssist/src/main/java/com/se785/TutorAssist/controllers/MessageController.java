@@ -3,6 +3,9 @@ package com.se785.TutorAssist.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +19,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.se785.TutorAssist.jwt.AuthenticationException;
 import com.se785.TutorAssist.models.Message;
 import com.se785.TutorAssist.services.MessageService;
+import com.se785.TutorAssist.services.StudentService;
+import com.se785.TutorAssist.services.TutorService;
 
 @RestController
 @RequestMapping("/messsage")
 public class MessageController {
 	private MessageService ms;
-
+	@Autowired
+	StudentService studentService;
+	@Autowired
+	TutorService tutorService;
+	
 	@Autowired
 	public MessageController(MessageService ms) {
 		super();
@@ -35,9 +44,20 @@ public class MessageController {
 	}
 	 //Creates a new User entry in the database using the given information.
     @PostMapping(value="/create")
-    public HttpStatus createRequest(@RequestBody Message message) {
+    public ResponseEntity<?> createRequest(@RequestBody Message message) {
+    	//getting the logged in user info
+    	User current_user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	
+    	//setting sender id to the current user's id
+    	if(current_user.getAuthorities().iterator().next().getAuthority()=="STUDENT")
+    		message.setSenderId(studentService.getStudentByUsername(current_user.getUsername()).getStudentId());
+    	else
+    		message.setSenderId(tutorService.getTutorByUsername(current_user.getUsername()).getTutorId());
+    	
+    	if(message.getReceiverId()==message.getSenderId())
+    		return ResponseEntity.badRequest().body("You can't send a message to yourself");
     	ms.createMessage(message);
-    	return HttpStatus.OK;
+    	return ResponseEntity.ok(current_user);
     }
     
     //Updates a Users entry in the database using the given information.
@@ -69,5 +89,18 @@ public class MessageController {
 		}else {
 			return new ResponseEntity<>(message,HttpStatus.OK); 
 		}
+    }
+    
+    //returns the all messages associated with the current user
+    @GetMapping(value="/allMessages")
+    public ResponseEntity<?> getAllMessages() {
+    	//getting the logged in user info
+    	User current_user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	
+    	//setting sender id to the current user's id
+    	if(current_user.getAuthorities().iterator().next().getAuthority()=="STUDENT")
+    		return ResponseEntity.ok(ms.getAllMessages(studentService.getStudentByUsername(current_user.getUsername()).getStudentId()));
+    	else
+    		return ResponseEntity.ok(ms.getAllMessages(tutorService.getTutorByUsername(current_user.getUsername()).getTutorId()));
     }
 }

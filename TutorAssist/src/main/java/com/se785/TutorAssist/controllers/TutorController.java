@@ -52,7 +52,7 @@ public class TutorController {
     public ResponseEntity<String> updateRequest(@RequestBody Tutor Tutor) throws UserNotFoundException {
 		if(ts.updateTutor(Tutor)) {
 			return new ResponseEntity<>(HttpStatus.OK); 
-		}else {
+		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 		}
 	}

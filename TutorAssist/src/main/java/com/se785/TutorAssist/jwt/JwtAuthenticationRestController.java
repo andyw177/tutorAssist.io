@@ -76,7 +76,7 @@ public class JwtAuthenticationRestController {
 
         if (jwtTokenUtil.canTokenBeRefreshed(token)) {
             String refreshedToken = jwtTokenUtil.refreshToken(token);
-            return ResponseEntity.ok(new JwtTokenResponse(refreshedToken));
+            return ResponseEntity.ok(new JwtTokenResponse(refreshedToken,user));
         } else {
             return ResponseEntity.badRequest().body(null);
         }
