@@ -35,10 +35,10 @@ public class DBOperationRunner implements CommandLineRunner {
 		studentRepo.deleteAllInBatch();
 		tutorRepo.deleteAllInBatch();
 		
-		Student stu1 = new Student(1,"student","last","root","pass","test@gmail.com","1999","female","question1","answer1",true,0, null);
-        Student stu2 =new Student(2,"student1","last1","student1","pass1","test1@gmail.com","1999","male","question1","answer1",false,0, null);
-        Student stu3 =new Student(3,"student2","last2","student2","pass2","test2@gmail.com","1999","female","question1","answer1",false,0, null);
-        Student stu4 =new Student(4,"student3","last3","student3","pass3","test3@gmail.com","1999","male","question1","answer1",false,0, null);
+		Student stu1 = new Student(1,"student","last","root","pass","test@gmail.com","1999","female","question1","answer1",true, null);
+        Student stu2 =new Student(2,"student1","last1","student1","pass1","test1@gmail.com","1999","male","question1","answer1",false, null);
+        Student stu3 =new Student(3,"student2","last2","student2","pass2","test2@gmail.com","1999","female","question1","answer1",false, null);
+        Student stu4 =new Student(4,"student3","last3","student3","pass3","test3@gmail.com","1999","male","question1","answer1",false, null);
 		Student[] stuArray = new Student[]{stu1,stu2,stu3,stu4};
 	
 	
