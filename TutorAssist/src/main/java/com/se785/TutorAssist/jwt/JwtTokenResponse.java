@@ -9,19 +9,23 @@ public class JwtTokenResponse implements Serializable {
     private static final long serialVersionUID = 8317676219297719109L;
 
     private final String token;
-    
-    private final UserDetails currentUser;
+    private UserDetails currentUser;
 
-    public JwtTokenResponse(String token, UserDetails current_user) {
+    public JwtTokenResponse(String token, UserDetails currentUser) {
         this.token = token;
-        this.currentUser = current_user;
+        this.currentUser = currentUser;
     }
 
     public String getToken() {
         return this.token;
     }
     
+
     public UserDetails getCurrentUser() {
         return this.currentUser;
+    }
+
+    public void setCurrentUser(UserDetails currentUser) {
+        this.currentUser = currentUser;
     }
 }

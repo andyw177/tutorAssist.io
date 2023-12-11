@@ -73,6 +73,7 @@ public class CourseServiceImpl implements CourseService{
 				stu.add(s);
 			}
 			course.setStudents(stu);
+			cr.save(course);
 			return true;
 			
 		}

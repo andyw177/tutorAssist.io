@@ -1,8 +1,13 @@
 package com.se785.TutorAssist.controllers;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.se785.TutorAssist.jwt.AuthenticationException;
 import com.se785.TutorAssist.models.Course;
 import com.se785.TutorAssist.services.CourseService;
+import com.se785.TutorAssist.services.StudentService;
 
 @RestController
 @RequestMapping("/Course")
@@ -28,6 +34,10 @@ public class CourseController {
 		super();
 		this.cs = cs;
 	}
+	
+	@Autowired
+	private StudentService ss;
+	
 	// Test Route
 		@GetMapping("/test")
 		public String test(){
@@ -73,9 +83,16 @@ public class CourseController {
 	    
 	    //Providing user ability to enroll in the course 
 	    @PutMapping(value = "/enroll")
-	    public ResponseEntity<String> enrollClass(@RequestParam("class") int classId, @RequestParam("student") int studentId) {
-	    	if(cs.enroll(classId,studentId)) {
-	    	return new ResponseEntity<>(HttpStatus.OK); 
+	    public ResponseEntity<String> enrollClass(@RequestParam("class") int classId) {
+	    	//gets the user from the context
+	    	User current_user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    	Collection<GrantedAuthority>roles = current_user.getAuthorities();
+	    	
+	    	if(roles.iterator().next().getAuthority()!="STUDENT")
+	    		return ResponseEntity.badRequest().body("Only students can enroll to a  class!");
+	    	
+	    	if(cs.enroll(classId,ss.getStudentByUsername(current_user.getUsername()).getStudentId())) {
+	    		return ResponseEntity.ok().body("successfully enrolled!"); 
 			}else {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 			}

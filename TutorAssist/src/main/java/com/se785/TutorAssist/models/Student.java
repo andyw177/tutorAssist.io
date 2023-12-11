@@ -1,6 +1,7 @@
 package com.se785.TutorAssist.models;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,7 +34,7 @@ public class Student implements Serializable{
 	@Column(nullable = false)
 	String email;
 	@Column
-	String birthdate;
+	Date birthdate;
 	@Column
 	String gender;
 	@Column(nullable = false)
@@ -58,7 +59,7 @@ public class Student implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	public Student(int studentId, String firstName, String lastName, String username, String password, String email,
-			String birthdate, String gender, String securityQues, String securityAns, boolean isAdmin, Set<Course> courses) {
+			Date birthdate, String gender, String securityQues, String securityAns, boolean isAdmin, Set<Course> courses) {
 		super();
 		this.studentId = studentId;
 		this.firstName = firstName;
@@ -109,10 +110,10 @@ public class Student implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getBirthdate() {
+	public Date getBirthdate() {
 		return birthdate;
 	}
-	public void setBirthdate(String birthdate) {
+	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
 	public String getGender() {
