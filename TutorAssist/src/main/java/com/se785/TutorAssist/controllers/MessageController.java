@@ -1,5 +1,7 @@
 package com.se785.TutorAssist.controllers;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.se785.TutorAssist.jwt.AuthenticationException;
 import com.se785.TutorAssist.models.Message;
+import com.se785.TutorAssist.models.Student;
 import com.se785.TutorAssist.services.MessageService;
 import com.se785.TutorAssist.services.StudentService;
 import com.se785.TutorAssist.services.TutorService;
@@ -36,6 +39,12 @@ public class MessageController {
 		super();
 		this.ms = ms;
 	}
+	
+	@Autowired
+	private StudentService studentService;
+	
+	@Autowired
+	private TutorService tutorService;
 	
 	// Test Route
 	@GetMapping("/test")
