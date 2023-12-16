@@ -1,26 +1,34 @@
 package com.se785.TutorAssist.services;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.se785.TutorAssist.daos.CourseRepository;
+import com.se785.TutorAssist.daos.MessageRepository;
 import com.se785.TutorAssist.daos.StudentRepository;
 import com.se785.TutorAssist.models.Course;
+import com.se785.TutorAssist.models.Message;
 import com.se785.TutorAssist.models.Student;
 
 @Service
 public class CourseServiceImpl implements CourseService{
 	private CourseRepository cr;
 	private StudentRepository sr;
+	private MessageRepository mr;
 	
 	@Autowired
-	public CourseServiceImpl(CourseRepository cr,StudentRepository sr) {
+	public CourseServiceImpl(CourseRepository cr,StudentRepository sr,MessageRepository mr) {
 		super();
 		this.cr = cr;
 		this.sr = sr;
+		this.mr = mr;
 	}
 
 	@Override
@@ -63,7 +71,7 @@ public class CourseServiceImpl implements CourseService{
 		
 		
 		if(s == null || course == null) {
-			return true;
+			return false;
 		}else {
 			Set<Student> stu = course.getStudents();
 			if(stu == null) {
@@ -74,6 +82,21 @@ public class CourseServiceImpl implements CourseService{
 			}
 			course.setStudents(stu);
 			cr.save(course);
+			
+			//schedule task to send message when class starts
+			TimerTask CourseStartTask = new TimerTask() {
+				public void run() {
+					Message message = new Message();
+					message.setReceiverId(s.getStudentId());
+					message.setSenderId(0);
+					message.setContent("To: " + s.getUsername() +  "\nFrom System: " + course.getCourseName() + " has started");
+					mr.save(message);
+				}
+	
+			};
+			System.out.println(course.getStartDate());
+			new Timer().schedule(CourseStartTask, course.getStartDate());
+			
 			return true;
 			
 		}

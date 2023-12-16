@@ -23,25 +23,25 @@ public class Student implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable = false)
 	int studentId;
-	@Column(nullable = false)
+	@Column
 	String firstName;
-	@Column(nullable = false)
+	@Column
 	String lastName;
 	@Column(nullable = false,unique = true)
 	String username;
 	@Column(nullable = false)
 	String password;
-	@Column(nullable = false)
+	@Column
 	String email;
 	@Column
 	Date birthdate;
 	@Column
 	String gender;
-	@Column(nullable = false)
+	@Column
 	String securityQues;
-	@Column(nullable = false)
+	@Column
 	String securityAns;
-	@Column(nullable = false)
+	@Column
 	boolean isAdmin;
 	
 	

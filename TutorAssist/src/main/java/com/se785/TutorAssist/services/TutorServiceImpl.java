@@ -60,6 +60,34 @@ public class TutorServiceImpl implements TutorService{
 	@Override
 	@Transactional
 	public boolean updateTutor(Tutor tutor) {
+		Tutor update = tr.findByUsername(tutor.getUsername());
+		if(tutor.getUsername() != null) {
+			update.setUsername(tutor.getUsername());
+		}
+		if(tutor.getFirstName() != null) {
+			update.setFirstName(tutor.getFirstName());
+		}
+		if(tutor.getLastName() != null) {
+			update.setLastName(tutor.getLastName());
+		}
+		if(tutor.getPassword() != null) {
+			update.setPassword(tutor.getPassword());
+		}
+		if(tutor.getEmail() != null) {
+			update.setEmail(tutor.getEmail());
+		}
+		if(tutor.getCollege() != null) {
+			update.setUsername(tutor.getUsername());
+		}
+		if(tutor.getDegreeType() != null) {
+			update.setDegreeType(tutor.getDegreeType());
+		}
+		if(tutor.getMajor() != null) {
+			update.setMajor(tutor.getMajor());
+		}
+		if(tutor.getYear() != null) {
+			update.setYear(tutor.getYear());
+		}
 		
 		tr.save(tutor);
 		return true;

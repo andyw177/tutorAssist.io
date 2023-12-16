@@ -44,7 +44,31 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	@Transactional
 	public boolean updateStudent(Student student) {
-		sr.save(student);
+		Student updated = sr.getById(student.getStudentId());
+		if(student.getFirstName() != null) {
+			updated.setFirstName(student.getFirstName());
+		}
+		if(student.getLastName() != null) {
+			updated.setLastName(student.getLastName());
+		}
+		if(student.getUsername() != null) {
+			updated.setUsername(student.getUsername());
+		}
+		if(student.getPassword() != null) {
+			updated.setPassword(student.getPassword());
+		}
+		if(student.getEmail() != null) {
+			updated.setEmail(student.getEmail());
+		}
+		
+		if(student.getBirthdate() != null) {
+			updated.setBirthdate(student.getBirthdate());
+		}
+		
+		if(student.getGender() != null) {
+			updated.setGender(student.getGender());
+		}
+		sr.save(updated);
 		return true;
 	}
 	@Override

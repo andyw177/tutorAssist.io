@@ -51,9 +51,9 @@ public class StudentController {
     @PutMapping(value="/update")
     public ResponseEntity<String> updateRequest(@RequestBody Student student) throws UserNotFoundException {
 		if(ss.updateStudent(student)) {
-			return new ResponseEntity<>(HttpStatus.OK); 
+			return new ResponseEntity<>("Update successful" , HttpStatus.OK); 
 		}else {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+			return new ResponseEntity<>("Update unsuccessful" , HttpStatus.BAD_REQUEST); 
 		}
 	}
     
@@ -61,18 +61,18 @@ public class StudentController {
     @DeleteMapping(value="/delete/{id}")
     public ResponseEntity<String> deleteRequest(@PathVariable("id") int id) throws UserNotFoundException {
     	if(ss.deleteStudent(id)) {
-			return new ResponseEntity<>(HttpStatus.OK); 
+			return new ResponseEntity<>("Delete successful" , HttpStatus.OK); 
 		}else {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+			return new ResponseEntity<>("Id does not exist" , HttpStatus.BAD_REQUEST); 
 		}
     }
     
 	//Provides a Users on the database that matches a given criteria and sends it back as JSON.
     @GetMapping(value="/get/{id}")
-    public ResponseEntity<Student> getRequest(@PathVariable("id") int id) throws UserNotFoundException {
+    public ResponseEntity<?> getRequest(@PathVariable("id") int id) throws UserNotFoundException {
     	Student student = ss.getStudentById(id);
     	if(student == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+			return new ResponseEntity<>("Id does not exist", HttpStatus.BAD_REQUEST); 
 		}else {
 			return new ResponseEntity<>(student,HttpStatus.OK); 
 		}
