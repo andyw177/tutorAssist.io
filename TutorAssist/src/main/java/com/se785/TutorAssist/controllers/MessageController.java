@@ -29,10 +29,6 @@ import com.se785.TutorAssist.services.TutorService;
 @RequestMapping("/messsage")
 public class MessageController {
 	private MessageService ms;
-	@Autowired
-	StudentService studentService;
-	@Autowired
-	TutorService tutorService;
 	
 	@Autowired
 	public MessageController(MessageService ms) {
@@ -73,9 +69,9 @@ public class MessageController {
     @PutMapping(value="/update")
     public ResponseEntity<String> updateRequest(@RequestBody Message message){
 		if(ms.updateMessage(message)) {
-			return new ResponseEntity<>(HttpStatus.OK); 
+			return new ResponseEntity<>("Update successful",HttpStatus.OK); 
 		}else {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+			return new ResponseEntity<>("Update unsuccessful",HttpStatus.BAD_REQUEST); 
 		}
 	}
     
@@ -83,18 +79,18 @@ public class MessageController {
     @DeleteMapping(value="/delete/{id}")
     public ResponseEntity<String> deleteRequest(@PathVariable("id") int id) {
     	if(ms.deleteMessage(id)) {
-			return new ResponseEntity<>(HttpStatus.OK); 
+			return new ResponseEntity<>("Delete successful" , HttpStatus.OK); 
 		}else {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+			return new ResponseEntity<>("Id does not exist" , HttpStatus.BAD_REQUEST); 
 		}
     }
     
 	//Provides a Users on the database that matches a given criteria and sends it back as JSON.
     @GetMapping(value="/get/{id}")
-    public ResponseEntity<Message> getRequest(@PathVariable("id") int id) {
+    public ResponseEntity<?> getRequest(@PathVariable("id") int id) {
     	Message message = ms.getByMessageId(id);
     	if(message == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+			return new ResponseEntity<>("Id does not exist",HttpStatus.BAD_REQUEST); 
 		}else {
 			return new ResponseEntity<>(message,HttpStatus.OK); 
 		}

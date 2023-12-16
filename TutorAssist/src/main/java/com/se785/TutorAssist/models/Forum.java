@@ -18,9 +18,7 @@ public class Forum {
 	Date date;
 	String title;
 	String body;
-	ForumStatus status;
 	int upCount;
-	int downCount;
 	public Forum(int userId, Date date, String title, String body) {
 		super();
 		this.userId = userId;
@@ -56,24 +54,14 @@ public class Forum {
 	public void setBody(String body) {
 		this.body = body;
 	}
-	public ForumStatus getStatus() {
-		return status;
-	}
-	public void setStatus(ForumStatus status) {
-		this.status = status;
-	}
+	
 	public int getUpCount() {
 		return upCount;
 	}
 	public void setUpCount(int upCount) {
 		this.upCount = upCount;
 	}
-	public int getDownCount() {
-		return downCount;
-	}
-	public void setDownCount(int downCount) {
-		this.downCount = downCount;
-	}
+	
 	
 	
 }

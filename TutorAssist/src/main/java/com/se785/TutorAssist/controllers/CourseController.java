@@ -54,9 +54,9 @@ public class CourseController {
 	    @PutMapping(value="/update")
 	    public ResponseEntity<String> updateRequest(@RequestBody Course course){
 			if(cs.updateCourse(course)) {
-				return new ResponseEntity<>(HttpStatus.OK); 
+				return new ResponseEntity<>("Update successful" , HttpStatus.OK); 
 			}else {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+				return new ResponseEntity<>("Update unsuccessful", HttpStatus.BAD_REQUEST); 
 			}
 		}
 	    
@@ -64,18 +64,18 @@ public class CourseController {
 	    @DeleteMapping(value="/delete/{id}")
 	    public ResponseEntity<String> deleteRequest(@PathVariable("id") int id) {
 	    	if(cs.deleteCourse(id)) {
-				return new ResponseEntity<>(HttpStatus.OK); 
+				return new ResponseEntity<>("Delete successful" , HttpStatus.OK); 
 			}else {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+				return new ResponseEntity<>("Id does not exist" , HttpStatus.BAD_REQUEST); 
 			}
 	    }
 	    
 		//Provides a Course on the database that matches a given criteria and sends it back as JSON.
 	    @GetMapping(value="/get/{id}")
-	    public ResponseEntity<Course> getRequest(@PathVariable("id") int id) {
+	    public ResponseEntity<?> getRequest(@PathVariable("id") int id) {
 	    	Course course = cs.getByCourseid(id);
 	    	if(course == null) {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+				return new ResponseEntity<>("Id does not exist" , HttpStatus.BAD_REQUEST); 
 			}else {
 				return new ResponseEntity<>(course,HttpStatus.OK); 
 			}

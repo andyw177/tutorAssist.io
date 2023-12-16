@@ -2,19 +2,25 @@ package com.se785.TutorAssist;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.se785.TutorAssist.daos.CourseRepository;
+import com.se785.TutorAssist.daos.MessageRepository;
 import com.se785.TutorAssist.daos.StudentRepository;
 import com.se785.TutorAssist.daos.TutorRepository;
 import com.se785.TutorAssist.models.Student;
 import com.se785.TutorAssist.models.Tutor;
 import com.se785.TutorAssist.models.Course;
+import com.se785.TutorAssist.models.Message;
 
 @Component
 public class DBOperationRunner implements CommandLineRunner {
@@ -27,6 +33,9 @@ public class DBOperationRunner implements CommandLineRunner {
 
 	@Autowired 
 	TutorRepository tutorRepo;
+	
+	@Autowired
+	MessageRepository messageRepo;
 	
 	@Override
 	public void run(String... args) throws Exception {	
@@ -66,13 +75,39 @@ public class DBOperationRunner implements CommandLineRunner {
 		Course[] classArray = new Course[]{
 			new Course(1, "math",new HashSet<>(Arrays.asList(stuArray)),tutor,new Date(10),new Date(10)),
 			new Course(2, "science",new HashSet<>(Arrays.asList(stuArray_1)),tutor,new Date(20),new Date(20)),
-			new Course(3, "english",new HashSet<>(Arrays.asList(stuArray_2)), tutor2,new Date(20),new Date(20))
+			new Course(3, "english",new HashSet<>(Arrays.asList(stuArray_2)), tutor2,new Date(20),new Date(20)),
+			new Course(4, "comp sci",new HashSet<>(Arrays.asList(stuArray_1)), tutor2, Date.valueOf(LocalDate.now()),new Date(20))
 		}; 
 	
 		classRepo.saveAll(Arrays.asList(classArray));
 		
 		
+		TimerTask CourseStartTask = new TimerTask() {
+			public void run() {
+			
+				List<Course> course = classRepo.findAll();
+				
+				for(Course c:course) {
+					Set<Student> students = c.getStudents();
+					for(Student s: students) {
+					
+						if(c.getStartDate().equals(Date.valueOf(LocalDate.now()))){
+							Message message = new Message();
+							message.setReceiverId(s.getStudentId());
+							message.setSenderId(0);
+							message.setContent("To: " + s.getUsername() +  "\nFrom System: " + c.getCourseName() + " has started");
+							messageRepo.save(message);
+						}
+					}
+				}
+			}
+		};
+		
+	
+		
+		new Timer().schedule(CourseStartTask,100);
 	}
+		
 	
 	
 }

@@ -20,15 +20,15 @@ public class Tutor {
 	@GeneratedValue
 	@Column(nullable = false)
 	int tutorId;
-	@Column(nullable = false)
+	@Column
 	String firstName;
-	@Column(nullable = false)
+	@Column
 	String lastName;
 	@Column(nullable = false,unique = true)
 	String username;
 	@Column(nullable = false)
 	String password;
-	@Column(nullable = false)
+	@Column
 	String email;
 	@Column
 	String college;
@@ -38,11 +38,11 @@ public class Tutor {
 	String major;
 	@Column
 	Date year;
-	@Column(nullable = false)
+	@Column
 	String securityQues;
-	@Column(nullable = false)
+	@Column
 	String securityAns;
-	@Column(nullable = false)
+	@Column
 	boolean isAdmin;
 	@Column
 	int rating;
