@@ -40,12 +40,6 @@ public class MessageController {
 		this.ms = ms;
 	}
 	
-	@Autowired
-	private StudentService studentService;
-	
-	@Autowired
-	private TutorService tutorService;
-	
 	// Test Route
 	@GetMapping("/test")
 	public String test(){
