@@ -16,7 +16,7 @@ import com.se785.TutorAssist.models.Forum;
 import com.se785.TutorAssist.services.ForumService;
 
 @RestController
-@RequestMapping("\forum")
+@RequestMapping("/forum")
 public class ForumController {
 	private ForumService fs;
 	@Autowired

@@ -4,18 +4,18 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class ClassRegistration {
+public class Registration {
 	@Id
 	int registrationId;
 	int tutorId;
 	int studentId;
 	RegistrationStatus status; 
 	int classId;
-	public ClassRegistration() {
+	public Registration() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ClassRegistration(int registrationId, int tutorId, int studentId, RegistrationStatus status, int classId) {
+	public Registration(int registrationId, int tutorId, int studentId, RegistrationStatus status, int classId) {
 		super();
 		this.registrationId = registrationId;
 		this.tutorId = tutorId;
