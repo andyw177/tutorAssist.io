@@ -53,18 +53,18 @@ private RatingService rs;
     @DeleteMapping(value="/delete/{id}")
     public ResponseEntity<String> deleteRequest(@PathVariable("id") int id) {
     	if(rs.deleteRating(id)) {
-			return new ResponseEntity<>("DeleHttpStatus.OK); 
+			return new ResponseEntity<>("Delete successful" , HttpStatus.OK); 
 		}else {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+			return new ResponseEntity<>("Id does not exist" , HttpStatus.BAD_REQUEST); 
 		}
     }
     
 	//Provides a Users on the database that matches a given criteria and sends it back as JSON.
     @GetMapping(value="/get/{id}")
-    public ResponseEntity<Rating> getRequest(@PathVariable("id") int id) {
+    public ResponseEntity<?> getRequest(@PathVariable("id") int id) {
     	Rating rating = rs.getRatingById(id);
     	if(rating == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+			return new ResponseEntity<>("Id does not exist" , HttpStatus.BAD_REQUEST); 
 		}else {
 			return new ResponseEntity<>(rating,HttpStatus.OK); 
 		}
@@ -74,9 +74,9 @@ private RatingService rs;
     @PutMapping(value="/rate/{id}")
     public ResponseEntity<String> RateAverage(@PathVariable("id") int id) {
     	if(rs.setAverageRating(id)) {
-			return new ResponseEntity<>(HttpStatus.OK); 
+			return new ResponseEntity<>("Average set successfully" , HttpStatus.OK); 
 		}else {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+			return new ResponseEntity<>("Id does not exist" , HttpStatus.BAD_REQUEST); 
 		}
     }
 	    

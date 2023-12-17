@@ -3,6 +3,7 @@ package com.se785.TutorAssist.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.se785.TutorAssist.daos.RegistrationRepository;
@@ -13,7 +14,7 @@ import com.se785.TutorAssist.models.RegistrationStatus;
 public class RegistrationServiceImpl implements RegistrationService {
 	private RegistrationRepository rr; 
 	
-	
+	@Autowired
 	public RegistrationServiceImpl(RegistrationRepository rr) {
 		super();
 		this.rr = rr;

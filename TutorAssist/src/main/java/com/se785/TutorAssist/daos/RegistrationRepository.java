@@ -13,7 +13,7 @@ public interface RegistrationRepository extends JpaRepository<Registration,Integ
 	public abstract List<Registration> findAllByStudentId(int id);
 	public abstract List<Registration> findAllByTutorId(int id);
 //	public abstract List<ClassRegistration> getAllByClassId(int id);
-	public abstract List<Registration> findAllTutorPending(int id);
+//	public abstract List<Registration> findAllTutorPending(int id);
 	
 	
 }
