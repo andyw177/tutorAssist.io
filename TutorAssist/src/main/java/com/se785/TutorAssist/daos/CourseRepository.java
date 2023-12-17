@@ -10,6 +10,6 @@ import com.se785.TutorAssist.models.Course;
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Integer>{
 	Course findByCourseId(int id);
-	List<Course> findAll();
+
 	
 }

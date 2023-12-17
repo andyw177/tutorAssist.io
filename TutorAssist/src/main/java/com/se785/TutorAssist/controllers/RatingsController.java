@@ -18,7 +18,7 @@ import com.se785.TutorAssist.models.Rating;
 import com.se785.TutorAssist.services.RatingService;
 
 @RestController
-@RequestMapping("\ratings")
+@RequestMapping("/ratings")
 public class RatingsController {
 private RatingService rs;
 	
@@ -28,56 +28,56 @@ private RatingService rs;
 		this.rs = rs;
 	}
 	// Test Route
-		@GetMapping("/test")
-		public String test(){
-			return "Hello World";
+	@GetMapping("/test")
+	public String test(){
+		return "Hello World";
+	}
+	 //Creates a new User entry in the database using the given information.
+    @PostMapping(value="/create")
+    public HttpStatus createRequest(@RequestBody Rating rating) {
+    	rs.createRating(rating);
+		return HttpStatus.OK;
+    }
+    
+    //Updates a Users entry in the database using the given information.
+    @PutMapping(value="/update")
+    public ResponseEntity<String> updateRequest(@RequestBody Rating rating){
+		if(rs.updateRating(rating)) {
+			return new ResponseEntity<>("Update successful", HttpStatus.OK); 
+		}else {
+			return new ResponseEntity<>("Update unsuccessful", HttpStatus.BAD_REQUEST); 
 		}
-		 //Creates a new User entry in the database using the given information.
-	    @PostMapping(value="/create")
-	    public HttpStatus createRequest(@RequestBody Rating rating) {
-	    	rs.createRating(rating);
-			return HttpStatus.OK;
-	    }
-	    
-	    //Updates a Users entry in the database using the given information.
-	    @PutMapping(value="/update")
-	    public ResponseEntity<String> updateRequest(@RequestBody Rating rating){
-			if(rs.updateRating(rating)) {
-				return new ResponseEntity<>(HttpStatus.OK); 
-			}else {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
-			}
+	}
+    
+    //Deletes a Users entry in the database using the given information.
+    @DeleteMapping(value="/delete/{id}")
+    public ResponseEntity<String> deleteRequest(@PathVariable("id") int id) {
+    	if(rs.deleteRating(id)) {
+			return new ResponseEntity<>("DeleHttpStatus.OK); 
+		}else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
 		}
-	    
-	    //Deletes a Users entry in the database using the given information.
-	    @DeleteMapping(value="/delete/{id}")
-	    public ResponseEntity<String> deleteRequest(@PathVariable("id") int id) {
-	    	if(rs.deleteRating(id)) {
-				return new ResponseEntity<>(HttpStatus.OK); 
-			}else {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
-			}
-	    }
-	    
-		//Provides a Users on the database that matches a given criteria and sends it back as JSON.
-	    @GetMapping(value="/get/{id}")
-	    public ResponseEntity<Rating> getRequest(@PathVariable("id") int id) {
-	    	Rating rating = rs.getRatingById(id);
-	    	if(rating == null) {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
-			}else {
-				return new ResponseEntity<>(rating,HttpStatus.OK); 
-			}
-	    }
+    }
+    
+	//Provides a Users on the database that matches a given criteria and sends it back as JSON.
+    @GetMapping(value="/get/{id}")
+    public ResponseEntity<Rating> getRequest(@PathVariable("id") int id) {
+    	Rating rating = rs.getRatingById(id);
+    	if(rating == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+		}else {
+			return new ResponseEntity<>(rating,HttpStatus.OK); 
+		}
+    }
 
-	    
-	    @PutMapping(value="/rate/{id}")
-	    public ResponseEntity<String> RateAverage(@PathVariable("id") int id) {
-	    	if(rs.setAverageRating(id)) {
-				return new ResponseEntity<>(HttpStatus.OK); 
-			}else {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
-			}
-	    }
+    
+    @PutMapping(value="/rate/{id}")
+    public ResponseEntity<String> RateAverage(@PathVariable("id") int id) {
+    	if(rs.setAverageRating(id)) {
+			return new ResponseEntity<>(HttpStatus.OK); 
+		}else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+		}
+    }
 	    
 }
