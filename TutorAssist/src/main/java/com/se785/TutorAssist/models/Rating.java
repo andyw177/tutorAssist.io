@@ -7,6 +7,7 @@ import javax.persistence.Id;
 @Entity
 public class Rating {
 	@Id
+	@GeneratedValue
 	int ratingId;
 	int userId;
 	int numRated;

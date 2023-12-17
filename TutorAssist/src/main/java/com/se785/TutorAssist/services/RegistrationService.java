@@ -11,6 +11,10 @@ public interface RegistrationService {
 	public abstract Registration getByRegistrationId(int id);
 	public abstract List<Registration> getAllByStudentId(int id);
 	public abstract List<Registration> getAllTutorPending(int id);
+	public abstract Registration accept(int id);
+	public abstract Registration reject(int id);
+	public abstract String register(int classId, int studentId) throws Exception;
+	
 	
 	
 }

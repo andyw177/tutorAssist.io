@@ -12,6 +12,7 @@ public interface CourseService {
 	public abstract Course getByCourseid(int id);
 	public abstract Set<Course> getAllCourses();
 	public abstract boolean enroll(int classId, int studentId);
+	public abstract boolean reject(int classId, int studentId);
 
 	
 }

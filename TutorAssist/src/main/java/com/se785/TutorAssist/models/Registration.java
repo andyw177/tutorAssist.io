@@ -1,11 +1,13 @@
 package com.se785.TutorAssist.models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Registration {
 	@Id
+	@GeneratedValue
 	int registrationId;
 	int tutorId;
 	int studentId;

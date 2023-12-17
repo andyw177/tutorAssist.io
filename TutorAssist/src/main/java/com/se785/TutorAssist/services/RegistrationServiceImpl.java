@@ -6,13 +6,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.se785.TutorAssist.daos.CourseRepository;
 import com.se785.TutorAssist.daos.RegistrationRepository;
+import com.se785.TutorAssist.daos.StudentRepository;
+import com.se785.TutorAssist.models.Course;
 import com.se785.TutorAssist.models.Registration;
 import com.se785.TutorAssist.models.RegistrationStatus;
+import com.se785.TutorAssist.models.Student;
 
 @Service
 public class RegistrationServiceImpl implements RegistrationService {
 	private RegistrationRepository rr; 
+	
+	@Autowired
+	private StudentRepository sr;
+	@Autowired
+	private CourseRepository cr; 
 	
 	@Autowired
 	public RegistrationServiceImpl(RegistrationRepository rr) {
@@ -65,6 +74,50 @@ public class RegistrationServiceImpl implements RegistrationService {
 		return res;
 		
 		
+	}
+
+	@Override
+	public Registration accept(int id) {
+		Registration reg = rr.findByRegistrationId(id);
+		reg.setStatus(RegistrationStatus.accepted);
+		rr.save(reg);
+		return reg;
+	}
+
+	@Override
+	public Registration reject(int id) {
+		Registration reg = rr.findByRegistrationId(id);
+		reg.setStatus(RegistrationStatus.rejected);
+		rr.save(reg);
+		
+		return reg;
+	}
+
+	@Override
+	public String register(int classId, int studentId) throws Exception{
+		Registration reg = new Registration();
+		reg.setClassId(classId);
+		reg.setStudentId(studentId);
+		reg.setTutorId(cr.findByCourseId(classId).getTutor().getTutorId());
+		reg.setStatus(RegistrationStatus.pending);
+	
+		for(Registration regS : rr.findAllByClassId(classId)) {
+			if (regS.getStudentId() == studentId) {
+				if(regS.getStatus().equals(RegistrationStatus.accepted)) {
+					return "accepted";
+				}else if(regS.getStatus().equals(RegistrationStatus.pending)) {
+					return "pending";
+				}else {
+					regS.setStatus(RegistrationStatus.pending);
+					rr.save(regS);
+					return "resubmitted";
+				}
+				
+			}
+		}
+		
+		rr.save(reg);
+		return "registered";
 	}
 
 }
