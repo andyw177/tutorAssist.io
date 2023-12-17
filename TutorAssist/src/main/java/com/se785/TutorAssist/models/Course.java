@@ -36,16 +36,16 @@ public class Course implements Serializable {
 //            joinColumns = {@JoinColumn(name = "courseId")},
 //            inverseJoinColumns = {@JoinColumn(name = "studentId")}
 //    )
-	@ManyToMany(fetch = FetchType.EAGER) @Column
+	@ManyToMany(fetch = FetchType.EAGER, cascade= {CascadeType.PERSIST,CascadeType.MERGE}) @Column
 	@JsonIgnoreProperties({"courses"})
 	Set<Student> students;
 	@ManyToOne
 	@JoinColumn(name="tutorId", nullable = false)
 	@JsonIgnoreProperties({"courses"})
 	Tutor tutor;
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	Date startDate;
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	Date endDate;
 	public Course() {
 		super();
