@@ -29,6 +29,11 @@ import com.se785.TutorAssist.services.TutorService;
 @RequestMapping("/messsage")
 public class MessageController {
 	private MessageService ms;
+	@Autowired
+	private TutorService tutorService;
+
+	@Autowired
+	private StudentService studentService;
 	
 	@Autowired
 	public MessageController(MessageService ms) {

@@ -48,7 +48,7 @@ public class StudentController {
     }
     
     //Updates a Users entry in the database using the given information.
-    @PutMapping(value="/update")
+    @PostMapping(value="/update")
     public ResponseEntity<String> updateRequest(@RequestBody Student student) throws UserNotFoundException {
 		if(ss.updateStudent(student)) {
 			return new ResponseEntity<>("Update successful" , HttpStatus.OK); 

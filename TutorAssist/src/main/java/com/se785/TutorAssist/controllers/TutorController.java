@@ -48,7 +48,7 @@ public class TutorController {
     }
     
     //Updates a Users entry in the database using the given information.
-    @PutMapping(value="/update")
+    @PostMapping(value="/update")
     public ResponseEntity<String> updateRequest(@RequestBody Tutor Tutor) throws UserNotFoundException {
 		if(ts.updateTutor(Tutor)) {
 			return new ResponseEntity<>("Update successful" , HttpStatus.OK); 

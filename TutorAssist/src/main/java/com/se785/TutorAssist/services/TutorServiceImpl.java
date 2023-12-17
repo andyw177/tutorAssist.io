@@ -60,7 +60,7 @@ public class TutorServiceImpl implements TutorService{
 	@Override
 	@Transactional
 	public boolean updateTutor(Tutor tutor) {
-		Tutor update = tr.findByUsername(tutor.getUsername());
+		Tutor update = tr.findByTutorId(tutor.getTutorId());
 		if(tutor.getUsername() != null) {
 			update.setUsername(tutor.getUsername());
 		}
