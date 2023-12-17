@@ -65,6 +65,23 @@ public class CourseServiceImpl implements CourseService{
 	}
 
 	@Override
+	public boolean reject(int classId, int studentId) {
+		Course course = cr.findByCourseId(classId);
+		Student stu = sr.findByStudentId(studentId);
+		if(stu == null || course == null) {
+			return false;
+		}else {
+			Message message = new Message();
+			message.setReceiverId(stu.getStudentId());
+			message.setSenderId(0);
+			message.setContent("To: " + stu.getUsername()
+			+  "\nFrom System: You have been rejected to take " +  course.getCourseName());
+			mr.save(message);
+			return true;
+		}
+	
+	}
+	@Override
 	public boolean enroll(int classId, int studentId) {
 		Course course = cr.findByCourseId(classId);
 		Student s = sr.findByStudentId(studentId);
@@ -82,6 +99,14 @@ public class CourseServiceImpl implements CourseService{
 			}
 			course.setStudents(stu);
 			cr.save(course);
+			
+			//make message for enrollment
+			Message message = new Message();
+			message.setReceiverId(s.getStudentId());
+			message.setSenderId(0);
+			message.setContent("To: " + s.getUsername()
+			+  "\nFrom System: You have been accepted to take " +  course.getCourseName());
+			mr.save(message);
 			
 			//schedule task to send message when class starts
 			TimerTask CourseStartTask = new TimerTask() {
