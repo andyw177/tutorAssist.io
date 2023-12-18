@@ -67,11 +67,10 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/swagger-ui/**",
                 "/swagger-resources/**",
                 "/jwt/"
-        ).permitAll()
-        //removing this line since it disables whole tutor controller to students
-       // .antMatchers("/tutor/**").hasAnyAuthority("TUTOR")
-        .antMatchers("/Course/create,/Course/delete").hasAnyAuthority("TUTOR")
-        .antMatchers("/Course/enroll" , "/ratings/**").hasAnyAuthority("STUDENT")
+
+        ).permitAll().antMatchers("/tutor/update","/tutor/create","/tutor/delete/**","/Course/create",/Course/delete").hasAnyAuthority("TUTOR")
+        .antMatchers("/student/update","/student/create","/student/delete/**","/Registration/register/**" , "/ratings/**").hasAnyAuthority("STUDENT")
+
         .anyRequest().authenticated();
         
         httpSecurity

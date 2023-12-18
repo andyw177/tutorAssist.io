@@ -82,7 +82,7 @@ public class CourseServiceImpl implements CourseService{
 		}else {
 			Message message = new Message();
 			message.setReceiverId(stu.getStudentId());
-			message.setSenderId(0);
+			message.setSenderId(sr.findByUsername("System").getStudentId());
 			message.setContent("To: " + stu.getUsername()
 			+  "\nFrom System: You have been rejected to take " +  course.getCourseName());
 			mr.save(message);
@@ -112,7 +112,7 @@ public class CourseServiceImpl implements CourseService{
 			//make message for enrollment
 			Message message = new Message();
 			message.setReceiverId(s.getStudentId());
-			message.setSenderId(0);
+			message.setSenderId(sr.findByUsername("System").getStudentId());
 			message.setContent("To: " + s.getUsername()
 			+  "\nFrom System: You have been accepted to take " +  course.getCourseName());
 			mr.save(message);
@@ -122,7 +122,7 @@ public class CourseServiceImpl implements CourseService{
 				public void run() {
 					Message message = new Message();
 					message.setReceiverId(s.getStudentId());
-					message.setSenderId(0);
+					message.setSenderId(sr.findByUsername("System").getStudentId());
 					message.setContent("To: " + s.getUsername() +  "\nFrom System: " + course.getCourseName() + " has started");
 					mr.save(message);
 				}

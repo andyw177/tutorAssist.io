@@ -52,7 +52,12 @@ public class DBOperationRunner implements CommandLineRunner {
 
 		Student[] stuArray = new Student[]{stu1,stu2,stu3,stu4};
 	
-	
+		Student systemUser = new Student();
+		systemUser.setUsername("SYSTEM");
+		systemUser.setPassword("system");
+		systemUser.setFirstName("SYSTEM");
+		systemUser = studentRepo.save(systemUser);
+		
 		
 		studentRepo.saveAll(Arrays.asList(stuArray));
 		stu1.setStudentId(studentRepo.findByUsername(stu1.getUsername()).getStudentId());
@@ -94,7 +99,7 @@ public class DBOperationRunner implements CommandLineRunner {
 						if(c.getStartDate().equals(Date.valueOf(LocalDate.now()))){
 							Message message = new Message();
 							message.setReceiverId(s.getStudentId());
-							message.setSenderId(0);
+							message.setSenderId(studentRepo.findByUsername("System").getStudentId());
 							message.setContent("To: " + s.getUsername() +  "\nFrom System: " + c.getCourseName() + " has started");
 							messageRepo.save(message);
 						}
