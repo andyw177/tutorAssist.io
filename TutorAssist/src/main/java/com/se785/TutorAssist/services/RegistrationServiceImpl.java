@@ -1,5 +1,7 @@
 package com.se785.TutorAssist.services;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +102,12 @@ public class RegistrationServiceImpl implements RegistrationService {
 		reg.setStudentId(studentId);
 		reg.setTutorId(cr.findByCourseId(classId).getTutor().getTutorId());
 		reg.setStatus(RegistrationStatus.pending);
-	
+		
+		Course course = cr.findByCourseId(classId);
+		System.out.println(course.getStudents() + " " + course.getStartDate().compareTo(Date.valueOf(LocalDate.now())));
+		if(course.getStartDate().compareTo(Date.valueOf(LocalDate.now())) < 0) {
+			return "invalid";
+		}
 		for(Registration regS : rr.findAllByClassId(classId)) {
 			if (regS.getStudentId() == studentId) {
 				if(regS.getStatus().equals(RegistrationStatus.accepted)) {

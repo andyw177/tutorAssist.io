@@ -73,10 +73,10 @@ public class DBOperationRunner implements CommandLineRunner {
 		
 	
 		Course[] classArray = new Course[]{
-			new Course(1, "math",new HashSet<>(Arrays.asList(stuArray)),tutor,new Date(10),new Date(10)),
-			new Course(2, "science",new HashSet<>(Arrays.asList(stuArray_1)),tutor,new Date(20),new Date(20)),
-			new Course(3, "english",new HashSet<>(Arrays.asList(stuArray_2)), tutor2,new Date(20),new Date(20)),
-			new Course(4, "comp sci",new HashSet<>(Arrays.asList(stuArray_1)), tutor2, Date.valueOf(LocalDate.now()),new Date(20))
+			new Course(1, "math",new HashSet<>(Arrays.asList(stuArray)),tutor,Date.valueOf(LocalDate.now().minusMonths(2)),Date.valueOf(LocalDate.now().plusMonths(2))),
+			new Course(2, "science",new HashSet<>(Arrays.asList(stuArray_1)),tutor,Date.valueOf(LocalDate.now().minusDays(10)),Date.valueOf(LocalDate.now().plusMonths(2))),
+			new Course(3, "english",new HashSet<>(Arrays.asList(stuArray_2)), tutor2,Date.valueOf(LocalDate.now()),Date.valueOf(LocalDate.now().plusMonths(5))),
+			new Course(4, "comp sci",new HashSet<>(Arrays.asList(stuArray_1)), tutor2, Date.valueOf(LocalDate.now()),Date.valueOf(LocalDate.now().plusMonths(5)))
 		}; 
 	
 		classRepo.saveAll(Arrays.asList(classArray));
