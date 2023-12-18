@@ -67,6 +67,8 @@ public class RegistrationController {
 					return new ResponseEntity<>("Registration still pending", HttpStatus.BAD_REQUEST);
 				case "resubmitted":
 					return new ResponseEntity<>("Registration resubmitted", HttpStatus.OK);
+				case "invalid":
+					return new ResponseEntity<>("Can not register after course begins", HttpStatus.BAD_REQUEST);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

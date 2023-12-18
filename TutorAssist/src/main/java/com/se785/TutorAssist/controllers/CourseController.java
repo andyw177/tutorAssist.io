@@ -80,22 +80,5 @@ public class CourseController {
 				return new ResponseEntity<>(course,HttpStatus.OK); 
 			}
 	    }
-	    
-	    //Providing user ability to enroll in the course 
-	    @PutMapping(value = "/enroll")
-	    public ResponseEntity<String> enrollClass(@RequestParam("class") int classId) {
-	    	//gets the user from the context
-	    	User current_user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	    	Collection<GrantedAuthority>roles = current_user.getAuthorities();
-	    	
-	    	if(roles.iterator().next().getAuthority()!="STUDENT")
-	    		return ResponseEntity.badRequest().body("Only students can enroll to a  class!");
-	    	
-	    	if(cs.enroll(classId,ss.getStudentByUsername(current_user.getUsername()).getStudentId())) {
-	    		return ResponseEntity.ok().body("successfully enrolled!"); 
-			}else {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
-			}
-	    	
-	    }	
+	   
 }

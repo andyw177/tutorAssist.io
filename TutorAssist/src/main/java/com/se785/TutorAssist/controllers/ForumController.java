@@ -37,7 +37,7 @@ public class ForumController {
 	    }
 	    
 	    //Updates a forum entry in the database using the given information.
-	    @PutMapping(value="/update")
+	    @PostMapping(value="/update")
 	    public ResponseEntity<String> updateRequest(@RequestBody Forum forum){
 			if(fs.updateForum(forum)) {
 				return new ResponseEntity<>("Update successful" , HttpStatus.OK); 
