@@ -29,18 +29,17 @@ import com.se785.TutorAssist.services.TutorService;
 @RequestMapping("/messsage")
 public class MessageController {
 	private MessageService ms;
+	@Autowired
+	private TutorService tutorService;
+
+	@Autowired
+	private StudentService studentService;
 	
 	@Autowired
 	public MessageController(MessageService ms) {
 		super();
 		this.ms = ms;
 	}
-	
-	@Autowired
-	private StudentService studentService;
-	
-	@Autowired
-	private TutorService tutorService;
 	
 	// Test Route
 	@GetMapping("/test")

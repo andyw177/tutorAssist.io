@@ -51,7 +51,7 @@ public class CourseController {
 	    }
 	    
 	    //Updates a Course entry in the database using the given information.
-	    @PutMapping(value="/update")
+	    @PostMapping(value="/update")
 	    public ResponseEntity<String> updateRequest(@RequestBody Course course){
 			if(cs.updateCourse(course)) {
 				return new ResponseEntity<>("Update successful" , HttpStatus.OK); 
@@ -61,7 +61,7 @@ public class CourseController {
 		}
 	    
 	    //Deletes a Course entry in the database using the given information.
-	    @DeleteMapping(value="/delete/{id}")
+	    @PostMapping(value="/delete/{id}")
 	    public ResponseEntity<String> deleteRequest(@PathVariable("id") int id) {
 	    	if(cs.deleteCourse(id)) {
 				return new ResponseEntity<>("Delete successful" , HttpStatus.OK); 

@@ -8,31 +8,40 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import com.se785.TutorAssist.daos.CourseRepository;
 import com.se785.TutorAssist.daos.MessageRepository;
 import com.se785.TutorAssist.daos.StudentRepository;
+import com.se785.TutorAssist.daos.TutorRepository;
 import com.se785.TutorAssist.models.Course;
 import com.se785.TutorAssist.models.Message;
 import com.se785.TutorAssist.models.Student;
+import com.se785.TutorAssist.models.Tutor;
 
 @Service
 public class CourseServiceImpl implements CourseService{
 	private CourseRepository cr;
 	private StudentRepository sr;
 	private MessageRepository mr;
+	private TutorRepository tr;
 	
 	@Autowired
-	public CourseServiceImpl(CourseRepository cr,StudentRepository sr,MessageRepository mr) {
+	public CourseServiceImpl(CourseRepository cr,StudentRepository sr,MessageRepository mr, TutorRepository tr) {
 		super();
 		this.cr = cr;
 		this.sr = sr;
 		this.mr = mr;
+		this.tr = tr;
 	}
 
 	@Override
 	public Course createCourse(Course c) {
+		User current_user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Tutor my_tutor = tr.findByUsername(current_user.getUsername());
+		c.setTutor(my_tutor);
 		return cr.save(c) ;
 	}
 
@@ -45,7 +54,7 @@ public class CourseServiceImpl implements CourseService{
 	@Override
 	public boolean deleteCourse(int id) {
 		Course course = cr.findByCourseId(id);
-		if (course == null) {
+		if (course != null) {
 			cr.delete(course);
 			return true;
 		}
