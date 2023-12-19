@@ -68,8 +68,8 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/swagger-resources/**",
                 "/jwt/"
 
-        ).permitAll().antMatchers("/tutor/update","/tutor/create","/tutor/delete/**","/Course/create",/Course/delete").hasAnyAuthority("TUTOR")
-        .antMatchers("/student/update","/student/create","/student/delete/**","/Registration/register/**" , "/ratings/**").hasAnyAuthority("STUDENT")
+        ).permitAll().antMatchers("/tutor/update","/tutor/delete/**","/Course/create","/Course/delete").hasAnyAuthority("TUTOR")
+        .antMatchers("/student/update","/student/delete/**","/Registration/register/**" , "/ratings/**","/Course/dropout/**").hasAnyAuthority("STUDENT")
 
         .anyRequest().authenticated();
         

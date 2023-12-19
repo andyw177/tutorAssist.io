@@ -58,7 +58,7 @@ public class StudentController {
 	}
     
     //Deletes a Users entry in the database using the given information.
-    @DeleteMapping(value="/delete/{id}")
+    @PostMapping(value="/delete/{id}")
     public ResponseEntity<String> deleteRequest(@PathVariable("id") int id) throws UserNotFoundException {
     	if(ss.deleteStudent(id)) {
 			return new ResponseEntity<>("Delete successful" , HttpStatus.OK); 

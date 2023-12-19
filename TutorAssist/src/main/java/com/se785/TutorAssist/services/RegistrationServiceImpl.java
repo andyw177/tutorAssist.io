@@ -44,13 +44,13 @@ public class RegistrationServiceImpl implements RegistrationService {
 	}
 
 	@Override
-	public boolean deleteRegistration(int id) {
+	public 	Registration deleteRegistration(int id) {
 		Registration reg = rr.findByRegistrationId(id);
 		if(reg!= null) {
 			rr.delete(reg);
-			return true;
+			return reg;
 		}
-		return false;
+		return null;
 	}
 
 	@Override

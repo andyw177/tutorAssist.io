@@ -40,7 +40,7 @@ private RatingService rs;
     }
     
     //Updates a Users entry in the database using the given information.
-    @PutMapping(value="/update")
+    @PostMapping(value="/update")
     public ResponseEntity<String> updateRequest(@RequestBody Rating rating){
 		if(rs.updateRating(rating)) {
 			return new ResponseEntity<>("Update successful", HttpStatus.OK); 
@@ -50,7 +50,7 @@ private RatingService rs;
 	}
     
     //Deletes a Users entry in the database using the given information.
-    @DeleteMapping(value="/delete/{id}")
+    @PostMapping(value="/delete/{id}")
     public ResponseEntity<String> deleteRequest(@PathVariable("id") int id) {
     	if(rs.deleteRating(id)) {
 			return new ResponseEntity<>("Delete successful" , HttpStatus.OK); 
@@ -71,7 +71,7 @@ private RatingService rs;
     }
 
     
-    @PutMapping(value="/rate/{id}")
+    @PostMapping(value="/rate/{id}")
     public ResponseEntity<String> RateAverage(@PathVariable("id") int id) {
     	if(rs.setAverageRating(id)) {
 			return new ResponseEntity<>("Average set successfully" , HttpStatus.OK); 

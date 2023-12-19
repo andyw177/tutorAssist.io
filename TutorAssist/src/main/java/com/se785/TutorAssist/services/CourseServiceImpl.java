@@ -136,4 +136,24 @@ public class CourseServiceImpl implements CourseService{
 		}
 	}
 
+	@Override
+	public String dropout(int classId, int studentId) {
+		Course course = cr.findByCourseId(classId);
+		Student s = sr.findByStudentId(studentId);
+		if(course == null || s == null) {
+			return "invalid";
+		}
+		
+		if(course.getEndDate().compareTo(Date.valueOf(LocalDate.now())) < 0) {
+			return "expired";
+		}
+		
+		Set <Student> studs = course.getStudents();
+		studs.remove(s);
+		course.setStudents(studs);
+		cr.save(course);
+		
+		return "dropped";
+	}
+
 }
