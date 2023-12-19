@@ -81,4 +81,22 @@ public class CourseController {
 			}
 	    }
 	   
+	    //Remove student from a class
+	    @PostMapping(value="/drop/{id}")
+	    public ResponseEntity<String> dropCourse(@PathVariable("id") int id) {
+	    	//getting the logged in user info
+	    	User current_user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+	    	int studentId = ss.getStudentByUsername(current_user.getUsername()).getStudentId();
+	    	switch(cs.dropout(id, studentId)) {
+	    	case "dropped":
+	    		return new ResponseEntity<>("Dropout successful" , HttpStatus.OK); 
+	    	case "invalid":
+	    		return new ResponseEntity<>("Id does not exist" , HttpStatus.BAD_REQUEST); 
+	    	case "expired":
+	    		return new ResponseEntity<>("Course has ended" , HttpStatus.BAD_REQUEST); 
+	    	}
+			return null;
+    	}	
+	
 }

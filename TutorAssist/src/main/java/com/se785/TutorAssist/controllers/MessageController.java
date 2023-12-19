@@ -65,7 +65,7 @@ public class MessageController {
     }
     
     //Updates a Users entry in the database using the given information.
-    @PutMapping(value="/update")
+    @PostMapping(value="/update")
     public ResponseEntity<String> updateRequest(@RequestBody Message message){
 		if(ms.updateMessage(message)) {
 			return new ResponseEntity<>("Update successful",HttpStatus.OK); 

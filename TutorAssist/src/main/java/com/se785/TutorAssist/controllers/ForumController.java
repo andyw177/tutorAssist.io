@@ -47,7 +47,7 @@ public class ForumController {
 		}
 	    
 	    //Deletes a forum entry in the database using the given information.
-	    @DeleteMapping(value="/delete/{id}")
+	    @PostMapping(value="/delete/{id}")
 	    public ResponseEntity<String> deleteRequest(@PathVariable("id") int id) {
 	    	if(fs.deleteForum(id)) {
 				return new ResponseEntity<>("Delete successful" , HttpStatus.OK); 
