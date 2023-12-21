@@ -88,7 +88,7 @@ public class RegistrationController {
 	  public ResponseEntity<String> deleteRequest(@PathVariable("id") int id) {
 		Registration reg = rs.deleteRegistration(id);
     	if(reg != null) {
-//    		cs.dropout(reg.getClassId(), reg.getStudentId());
+    		cs.dropout(reg.getClassId(), reg.getStudentId());
 			return new ResponseEntity<>("Delete successful",HttpStatus.OK); 
 		}else {
 			return new ResponseEntity<>("Id does not exist" , HttpStatus.BAD_REQUEST); 

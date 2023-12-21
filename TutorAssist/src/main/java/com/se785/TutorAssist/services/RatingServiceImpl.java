@@ -23,8 +23,13 @@ public class RatingServiceImpl implements RatingService {
 	}
 
 	@Override
-	public Rating createRating(Rating rating) {
-		return rr.save(rating);
+	public Rating createRating(int tutor, int rating,int user) {
+		Rating rate = new Rating();
+		rate.setNumRated(rating);
+		rate.setTutorId(tutor);
+		rate.setUserId(user);
+		rr.save(rate);
+		return rate;
 	}
 
 	@Override

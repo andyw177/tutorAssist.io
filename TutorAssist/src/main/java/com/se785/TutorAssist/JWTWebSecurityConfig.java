@@ -62,14 +62,14 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
         
         httpSecurity.authorizeHttpRequests()
         .antMatchers(
-                "/jwt/authenticate","/student/create","/tutor/create",
+                "/jwt/authenticate","/student/create/","/tutor/create/",
                 "/v2/api-docs/**",
                 "/swagger-ui/**",
                 "/swagger-resources/**",
                 "/jwt/"
 
         ).permitAll().antMatchers("/tutor/update","/tutor/delete/**","/Course/create","/Course/delete").hasAnyAuthority("TUTOR")
-        .antMatchers("/student/update","/student/delete/**","/Registration/register/**" , "/ratings/**","/Course/dropout/**").hasAnyAuthority("STUDENT")
+        .antMatchers("/student/update","/student/delete/**","/Registration/register/**" ,"/Course/dropout/**").hasAnyAuthority("STUDENT")
 
         .anyRequest().authenticated();
         
