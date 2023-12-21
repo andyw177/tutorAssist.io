@@ -3,6 +3,8 @@ package com.se785.TutorAssist.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,16 +13,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.se785.TutorAssist.jwt.AuthenticationException;
 import com.se785.TutorAssist.models.Rating;
 import com.se785.TutorAssist.services.RatingService;
+import com.se785.TutorAssist.services.StudentService;
 
 @RestController
 @RequestMapping("/ratings")
 public class RatingsController {
 private RatingService rs;
+@Autowired
+private StudentService ss;
 	
 	@Autowired
 	public RatingsController(RatingService rs) {
@@ -34,8 +40,12 @@ private RatingService rs;
 	}
 	 //Creates a new User entry in the database using the given information.
     @PostMapping(value="/create")
-    public HttpStatus createRequest(@RequestBody Rating rating) {
-    	rs.createRating(rating);
+    public HttpStatus createRequest(@RequestParam(name = "tutor") int tutorId, @RequestParam(name = "rating") int rating) {
+    	//getting the logged in user info
+    	User current_user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    	int studentId = ss.getStudentByUsername(current_user.getUsername()).getStudentId();
+    	rs.createRating(tutorId,rating,studentId);
 		return HttpStatus.OK;
     }
     
