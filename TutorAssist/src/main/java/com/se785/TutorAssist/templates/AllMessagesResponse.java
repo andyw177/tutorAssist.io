@@ -3,7 +3,7 @@ package com.se785.TutorAssist.templates;
 import java.util.List;
 
 import com.se785.TutorAssist.models.Message;
-
+//Egemen Durmus
 public class AllMessagesResponse {
 	private List<Message> sent;
 	private List<Message> recieved;

@@ -10,6 +10,8 @@ import com.se785.TutorAssist.daos.RatingsRepository;
 import com.se785.TutorAssist.daos.TutorRepository;
 import com.se785.TutorAssist.models.Rating;
 import com.se785.TutorAssist.models.Tutor;
+
+//Andy Wang 
 @Service
 public class RatingServiceImpl implements RatingService {
 	RatingsRepository rr;

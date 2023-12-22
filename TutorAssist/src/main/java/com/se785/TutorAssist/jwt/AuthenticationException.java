@@ -1,5 +1,5 @@
 package com.se785.TutorAssist.jwt;
-
+//Egemen Durmus
 public class AuthenticationException extends RuntimeException {
     /**
 	 * 

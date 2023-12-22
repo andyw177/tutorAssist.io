@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.se785.TutorAssist.daos.MessageRepository;
 import com.se785.TutorAssist.models.Message;
 import com.se785.TutorAssist.templates.AllMessagesResponse;
-
+//Andy Wang 
 @Service
 public class MessageServiceImpl implements MessageService{
 	

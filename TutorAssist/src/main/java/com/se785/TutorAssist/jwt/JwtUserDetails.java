@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
+//Egemen Durmus
 @JsonIgnoreProperties("password")
 public class JwtUserDetails implements UserDetails {
 
