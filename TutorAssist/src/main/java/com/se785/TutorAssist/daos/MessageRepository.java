@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.se785.TutorAssist.models.Message;
-
+//Andy Wang 
 @Repository
 public interface MessageRepository extends JpaRepository<Message,Integer>{
 	public abstract Message findByMessageId(int id);

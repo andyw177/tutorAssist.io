@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.se785.TutorAssist.models.Student;
 import com.se785.TutorAssist.models.Tutor;
-
+//Andy Wang 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer>{
 	Student findByStudentId(int id);

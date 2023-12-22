@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.se785.TutorAssist.models.Rating;
-
+//Andy Wang 
 @Repository
 public interface RatingsRepository extends JpaRepository<Rating,Integer> {
 	public abstract Rating findByRatingId(int id);

@@ -23,7 +23,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+//Egemen Durmus
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 	@Autowired

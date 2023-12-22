@@ -21,6 +21,7 @@ import com.se785.TutorAssist.models.Rating;
 import com.se785.TutorAssist.services.RatingService;
 import com.se785.TutorAssist.services.StudentService;
 
+//Andy Wang 
 @RestController
 @RequestMapping("/ratings")
 public class RatingsController {

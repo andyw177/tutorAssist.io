@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
+//Andy Wang 
 @Repository
 public interface ForumRepository extends JpaRepository<Forum,Integer>{
 	public abstract Forum findByForumId(int forumId);
